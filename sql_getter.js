@@ -8,17 +8,21 @@ let db = new sqlite3.Database("Workforce_Planning_01.db", (err) => {
     console.log("Connected to in-memory SQlite database.")
 });
 
-// Query the skills list table.
-let sql_skills = "select * from Skills";
+// let skills = [];
+let supply_demand = [];
 
-db.all(sql_skills, [], (err, rows) => {
-    if (err) {
-        throw err;
-    }
-    rows.forEach((row) => {
-        console.log(row);
-    });
-});
+// // Query the skills list table.
+// let sql_skills = "select * from Skills";
+
+// db.all(sql_skills, [], (err, rows) => {
+//     if (err) {
+//         throw err;
+//     }
+//     rows.forEach((row) => {
+//         console.log(row);
+//         skills.push(row);
+//     });
+// });
 
 // Produce the supply and demand information.
 let sql_supply_demand = 
