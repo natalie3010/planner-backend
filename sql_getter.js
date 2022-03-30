@@ -1,5 +1,10 @@
 const sqlite3 = require("sqlite3").verbose();
 
+// Initialise express stuff.
+const express = require('express');
+const app = express();
+const port = 3000;
+
 // Open the database.
 let db = new sqlite3.Database("Workforce_Planning_01.db", (err) => {
     if (err) {
@@ -49,9 +54,20 @@ db.all(sql_supply_demand, [], (err, rows) => {
     if (err) {
         throw err;
     }
+
+    // Print out each row of the data.
     rows.forEach((row) => {
         console.log(row);
     });
+
+    // Using express app.
+    app.get('/', (req, res) => {
+        res.send(rows);
+    });
+
+    app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`)
+    })
 });
 
 // Close the database.
