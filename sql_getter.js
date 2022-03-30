@@ -1,7 +1,7 @@
 const sqlite3 = require("sqlite3").verbose();
 
 // Open the database.
-let db = new sqlite3.Database("Workforce_Planning_02.sqbpro", (err) => {
+let db = new sqlite3.Database("Workforce_Planning_01.db", (err) => {
     if (err) {
         return console.error(err.message);
     }
@@ -16,7 +16,7 @@ db.all(sql_skills, [], (err, rows) => {
         throw err;
     }
     rows.forEach((row) => {
-        console.log(row.name);
+        console.log(row);
     });
 });
 
