@@ -1,4 +1,5 @@
 const sqlite3 = require("sqlite3").verbose();
+// Change this to use ES6 import syntax.
 
 // Initialise express stuff.
 const express = require('express');
@@ -6,7 +7,7 @@ const app = express();
 const port = 3000;
 
 // Open the database.
-let db = new sqlite3.Database("Workforce_Planning_01.db", (err) => {
+const db = new sqlite3.Database("Workforce_Planning_01.db", (err) => {
     if (err) {
         return console.error(err.message);
     }
@@ -60,9 +61,10 @@ db.all(sql_supply_demand, [], (err, rows) => {
         console.log(row);
     });
 
-    // Using express app.
+    // Using express app. This should be outside the database connection.
+    //
     app.get('/', (req, res) => {
-        res.send(rows);
+        res.json(rows);
     });
 
     app.listen(port, () => {
