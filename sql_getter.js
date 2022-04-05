@@ -51,6 +51,12 @@ from
 ) as supply_sq
 where demand_sq.'Skill Name' = supply_sq.'Skill Name'`
 
+// Using express app. This should be outside the database connection.
+//
+// app.get('/', (req, res) => {
+//     res.json(rows);
+// });
+
 db.all(sql_supply_demand, [], (err, rows) => {
     if (err) {
         throw err;
@@ -61,7 +67,7 @@ db.all(sql_supply_demand, [], (err, rows) => {
         console.log(row);
     });
 
-    // Using express app. This should be outside the database connection.
+    // // Using express app. This should be outside the database connection.
     //
     app.get('/', (req, res) => {
         res.json(rows);
