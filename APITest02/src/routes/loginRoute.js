@@ -22,7 +22,7 @@ const loginRoute = (app) => {
                         user: user.username,
                     });
                     } else {
-                        res.send('Username or password incorrect');
+                        res.status(403).send('Username or password incorrect');
                     }
             } catch(err) {
                 res.status(500).json({ message: `Request failed with ${err}`});

@@ -7,7 +7,7 @@ import demandRoute from './src/routes/dRoutes';
 
 const app = express();
 app.use(bodyParser.json());
-const PORT = 4000;
+const PORT = 4001;
 
 // Is this the best way of doing this (i.e. passing the app to each individual route?)
 routes(app); 
