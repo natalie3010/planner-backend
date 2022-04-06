@@ -4,9 +4,9 @@ const db = new sqlite3("../Workforce_Planning_02.db", {fileMustExist: true});
 
 const sql_query = 
 
-`select * from 'Clients'`;
+`select * from 'Demand'`;
 
-export const getSupplyDemandData = (req, res) => {
+export const getDemandData = (req, res) => {
     let data = db.prepare(sql_query).all();
     console.log(data);
 	return data;
