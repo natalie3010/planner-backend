@@ -7,6 +7,10 @@ const users = [ // Put this in the database.
         username: 'tomjames',
         password: 'password123member',
         role: 'member'
+    },  {
+        username: 'yguegan',
+        password: 'abcd1234',
+        role: 'admin'
     }
 ];
 
@@ -14,7 +18,7 @@ const loginRoute = (app) => {
     app.route("/login")
         .post((req, res) => {
             try {
-                const { username, password } = req.body;
+                let { username, password } = req.body.body;
                 const user = users.find(u => { return u.username === username && u.password === password });
                 if (user) {
                     res.status(200).json({
