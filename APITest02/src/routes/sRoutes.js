@@ -6,8 +6,10 @@ const routes = (app) => {
             // Middleware to Authorize the USER;
             next();
         }, (req, res, next) => {
+            console.log(req);
+            console.log(req.query);
             try {
-                const data = getSupplyData();
+                const data = getSupplyData(req.query);
                 res.status(200).json(data);
             } catch(err) {
                 res.status(500).json({ message: `Request failed with ${err}`});
