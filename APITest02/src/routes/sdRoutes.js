@@ -3,8 +3,12 @@ import { getSupplyDemandData  } from "../controllers/sdController"
 const routes = (app) => {
     app.route("/dashboard")
         .get((req, res, next) => {
-            // Middleware to Authorize the USER;
-            next();
+            if(req.session.authenticated) {
+                next();
+            }
+            else {
+                res.status(401).send('User not authenticated');
+            }
         }, (req, res, next) => {
             try {
                 const data = getSupplyDemandData();

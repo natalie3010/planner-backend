@@ -3,8 +3,12 @@ import { getSupplyData  } from "../controllers/sController"
 const routes = (app) => {
     app.route("/supply")
         .get((req, res, next) => {
-            // Middleware to Authorize the USER;
-            next();
+            if(req.session.authenticated) {
+                next();
+            }
+            else {
+                res.status(401).send('User not authenticated');
+            }
         }, (req, res, next) => {
             console.log(req);
             console.log(req.query);

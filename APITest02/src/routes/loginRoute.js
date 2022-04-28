@@ -21,6 +21,7 @@ const loginRoute = (app) => {
                 let { username, password } = req.body.body;
                 const user = users.find(u => { return u.username === username && u.password === password });
                 if (user) {
+                    req.session.authenticated = true;
                     res.status(200).json({
                         authenticated:true,
                         user: user.username,
