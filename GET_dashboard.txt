@@ -1,0 +1,64 @@
+GET localhost:4001/dashboard
+
+[
+    {
+        "skill_name": "Adobe AEM",
+        "demand_count": 0,
+        "supply_count": 0
+    },
+    {
+        "skill_name": "Android",
+        "demand_count": 4,
+        "supply_count": 0
+    },
+    {
+        "skill_name": "Angular",
+        "demand_count": 4,
+        "supply_count": 2
+    },
+    {
+        "skill_name": "Backbase",
+        "demand_count": 0,
+        "supply_count": 0
+    },
+    {
+        "skill_name": "Camunda",
+        "demand_count": 0,
+        "supply_count": 0
+    },
+    {
+        "skill_name": "Digital Delivery Lead",
+        "demand_count": 2,
+        "supply_count": 0
+    },
+    {
+        "skill_name": "Digital Solution Architect",
+        "demand_count": 0,
+        "supply_count": 0
+    },
+    {
+        "skill_name": "NodeJS",
+        "demand_count": 0,
+        "supply_count": 0
+    },
+    {
+        "skill_name": "React",
+        "demand_count": 0,
+        "supply_count": 2
+    },
+    {
+        "skill_name": "SpringBoot",
+        "demand_count": 0,
+        "supply_count": 1
+    },
+    {
+        "skill_name": "UI/UX Designer",
+        "demand_count": 1,
+        "supply_count": 0
+    },
+    {
+        "skill_name": "iOS",
+        "demand_count": 2,
+        "supply_count": 0
+    }
+]
