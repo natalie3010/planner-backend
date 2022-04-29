@@ -1,6 +1,6 @@
   image: docker:latest
   services:
-    - docker:dind
+    - docker:19-dind
   stages: 
     - build
     - deploy
