@@ -5,14 +5,14 @@
     - build
     - deploy
   variables:
-    REPOSITORY_URL: <REPOSITORY_URL>
+    REPOSITORY_URL: $DOCKER_REGISTRY/$APP_NAME
     TASK_DEFINITION_NAME: <Task_Definition>
     CLUSTER_NAME: <CLUSTER_NAME>
     SERVICE_NAME: <SERVICE_NAME>  
   before_script:
     - apk add --no-cache curl jq python3 py3-pip
     - pip install awscli
-    - $(aws ecr get-login --no-include-email --region "${AWS_DEFAULT_REGION}")
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
     - IMAGE_TAG="$(echo $CI_COMMIT_SHA | head -c 8)"
   build:
     stage: build
