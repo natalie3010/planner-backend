@@ -6,8 +6,8 @@
     - deploy
   variables:
     REPOSITORY_URL: $DOCKER_REGISTRY/$APP_NAME
-    DOCKER_HOST: tcp://docker:2375D
-    OCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
     TASK_DEFINITION_NAME: <Task_Definition>
     CLUSTER_NAME: <CLUSTER_NAME>
