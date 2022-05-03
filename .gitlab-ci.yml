@@ -5,7 +5,7 @@
     - build
     - deploy
   variables:
-    REPOSITORY_URL: $DOCKER_REGISTRY/$APP_NAME
+    #REPOSITORY_URL: $DOCKER_REGISTRY/$APP_NAME
     TASK_DEFINITION_NAME: <Task_Definition>
     CLUSTER_NAME: <CLUSTER_NAME>
     SERVICE_NAME: <SERVICE_NAME>
@@ -24,8 +24,6 @@
         - docker build -t $REPOSITORY_URL:latest APITest02
         - echo "Tagging image..."
         - docker tag $REPOSITORY_URL:latest $REPOSITORY_URL:$IMAGE_TAG
-        - echo "Comming image..."
-        - docker commit $REPOSITORY_URL:$IMAGE_TAG
         - echo "Pushing image..."
         - docker push $REPOSITORY_URL:$IMAGE_TAG
     only:
