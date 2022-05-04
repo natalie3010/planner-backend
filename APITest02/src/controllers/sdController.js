@@ -10,9 +10,9 @@ const sql_query =
 		from Skills left join Demand 
 		on Skills.SkillsID = Demand.SkillsID
 		group by Skills.SkillName) demand_sq,
-		(select Skills.SkillName as 'skill_name', count(Demand.SkillsID) as 'supply_count'
-		from Skills left outer join Demand
-		on Skills.SkillsID = Demand.SkillsID and Demand.SelectedApplicantID not null
+		(select Skills.SkillName as 'skill_name', count(Supply.SkillsID) as 'supply_count'
+		from Skills left outer join Supply
+		on Skills.SkillsID = Supply.SkillsID
 		group by Skills.SkillName) supply_sq
 	where demand_sq.'skill_name' = supply_sq.'skill_name'`;
 

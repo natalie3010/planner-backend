@@ -1,30 +1,16 @@
-const users = [ // Put this in the database.
-    {
-        username: 'tomj',
-        password: 'password123admin',
-        role: 'admin'
-    }, {
-        username: 'tomjames',
-        password: 'password123member',
-        role: 'member'
-    },  {
-        username: 'yguegan',
-        password: 'abcd1234',
-        role: 'admin'
-    }
-];
+import { getMatchingUser  } from "../controllers/loginController"
 
 const loginRoute = (app) => {
     app.route("/login")
         .post((req, res) => {
             try {
                 let { username, password } = req.body.body;
-                const user = users.find(u => { return u.username === username && u.password === password });
-                if (user) {
+                const users = getMatchingUser(username, password);
+                if (users.length === 1) {
                     req.session.authenticated = true;
                     res.status(200).json({
                         authenticated:true,
-                        user: user.username,
+                        user: users[0].username,
                     });
                     } else {
                         res.status(403).send('Username or password incorrect');
