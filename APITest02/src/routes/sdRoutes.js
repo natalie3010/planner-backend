@@ -1,9 +1,11 @@
-import { getSupplyDemandData  } from "../controllers/sdController"
+import { getSupplyDemandData  } from '../controllers/sdController';
+import { verifyToken } from '../helpers/jwtTokenHelper';
 
 const routes = (app) => {
     app.route("/dashboard")
         .get((req, res, next) => {
-            if(req.session.authenticated) {
+            const token = req.headers["x-access-token"];
+            if(verifyToken(token, process.env.TOKEN_KEY)) {
                 next();
             }
             else {

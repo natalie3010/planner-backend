@@ -1,9 +1,11 @@
-import { getSupplyData  } from "../controllers/sController"
+import { getSupplyData  } from '../controllers/sController';
+import { verifyToken } from '../helpers/jwtTokenHelper';
 
 const routes = (app) => {
     app.route("/supply")
         .get((req, res, next) => {
-            if(req.session.authenticated) {
+            const token = req.headers["x-access-token"];
+            if(verifyToken(token, process.env.TOKEN_KEY)) {
                 next();
             }
             else {

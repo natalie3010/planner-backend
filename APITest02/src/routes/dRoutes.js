@@ -1,9 +1,11 @@
-import { getDemandData  } from "../controllers/dController"
+import { getDemandData  } from '../controllers/dController';
+import { verifyToken } from '../helpers/jwtTokenHelper';
 
 const routes = (app) => {
-    app.route("/demand")
+    app.route('/demand')
         .get((req, res, next) => {
-            if(req.session.authenticated) {
+            const token = req.headers['x-access-token'];
+            if(verifyToken(token, process.env.TOKEN_KEY)) {
                 next();
             }
             else {
@@ -18,12 +20,12 @@ const routes = (app) => {
             }
         });
     
-    app.route("/job/:demandID")
+    app.route('/job/:demandID')
         .put((req, res) =>
-        res.send("PUT request successful!"))
+        res.send('PUT request successful!'))
 
         .delete((req, res) =>
-        res.send("DELETE request successful!"))
+        res.send('DELETE request successful!'))
 }
 
 export default routes;

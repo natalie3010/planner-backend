@@ -2,7 +2,6 @@ const logoutRoute = (app) => {
     app.route("/logout")
         .get((req, res) => {
             try {
-                req.session.destroy();
                 res.status(200).json({
                     authenticated:false
                 });
