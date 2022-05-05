@@ -17,18 +17,18 @@
     TASK_DEFINITION_NAME: <Task_Definition>
     CLUSTER_NAME: <CLUSTER_NAME>
     SERVICE_NAME: <SERVICE_NAME>
-  #build:
-  #  stage: build
-  ###  script:
-  #      - echo "Building image..."
-  #      - docker build -t workforce-planner . -f APITest02/Dockerfile
-  #      - echo "Tagging image..."
-  #      - docker tag workforce-planner:latest $REPOSITORY_URL:latest
-  #      - echo "Pushing image..."
-  #      - docker push $REPOSITORY_URL:latest
-#only:
-#- main
-   #     - develop
+  build:
+    stage: build
+    script:
+        - echo "Building image..."
+        - docker build -t workforce-planner . -f APITest02/Dockerfile
+        - echo "Tagging image..."
+        - docker tag workforce-planner:latest $REPOSITORY_URL:latest
+        - echo "Pushing image..."
+        - docker push $REPOSITORY_URL:latest
+    only:
+        - main
+        - develop
   deploy:
     stage: deploy
     script:
