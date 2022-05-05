@@ -1,5 +1,5 @@
 {
-    "family": "workforce-planner-task-defination",
+    "family": "workforce-planner-task",
     "containerDefinitions": [
       {
         "name": "workforce-planning-tool",
