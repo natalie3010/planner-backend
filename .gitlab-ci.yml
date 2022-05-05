@@ -37,7 +37,7 @@
     #    - NEW_CONTAINER_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "$REPOSITORY_URL:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0]')
     #    - echo "Registering new container definition..."
         - aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json
-    #    - echo "Updating the service..."
+        - echo "Updating the service..."
         - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}"
-   # only:
-    #- main
+    only:
+        - main
