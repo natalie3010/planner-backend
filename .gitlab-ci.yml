@@ -21,11 +21,11 @@
         - IMAGE_TAG="$(echo $CI_COMMIT_SHA | head -c 8)"
     script:
         - echo "Building image..."
-        - docker build -t $REPOSITORY_URL:latest APITest02
+        - docker build -t workforce-planner . -f APITest02
         - echo "Tagging image..."
-        - docker tag $REPOSITORY_URL:latest $REPOSITORY_URL:$IMAGE_TAG
+        - docker tag workforce-planner:latest $REPOSITORY_URL:latest
         - echo "Pushing image..."
-        - docker push $REPOSITORY_URL:$IMAGE_TAG
+        - docker push $REPOSITORY_URL:latest
     only:
         - main
         - develop
