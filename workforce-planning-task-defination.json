@@ -1,5 +1,6 @@
 {
     "family": "workforce-planner-task",
+	"requiresCompatibilities": "EC2",
     "containerDefinitions": [
       {
         "name": "workforce-planning-tool",
