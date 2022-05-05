@@ -14,14 +14,14 @@
         - IMAGE_TAG="$(echo $CI_COMMIT_SHA | head -c 8)"
   variables:
     REPOSITORY_URL: $DOCKER_REGISTRY/$APP_NAME
-    TASK_DEFINITION_NAME: <Task_Definition>
-    CLUSTER_NAME: <CLUSTER_NAME>
-    SERVICE_NAME: <SERVICE_NAME>
+    TASK_DEFINITION_NAME: workforce-planner-task
+    CLUSTER_NAME: workforce-planner-cluster
+    SERVICE_NAME: workforce-planner-service
   build:
     stage: build
     script:
         - echo "Building image..."
-        - docker build -t workforce-planner . -f APITest02/Dockerfile
+        - docker build -t workforce-planner APITest02
         - echo "Tagging image..."
         - docker tag workforce-planner:latest $REPOSITORY_URL:latest
         - echo "Pushing image..."
@@ -38,6 +38,6 @@
     #    - echo "Registering new container definition..."
         - aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json
     #    - echo "Updating the service..."
-    #    - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}"
+        - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}"
    # only:
     #- main
