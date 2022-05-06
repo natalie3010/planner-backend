@@ -1,0 +1,12 @@
+POST localhost:4001/login
+With body:
+{
+    "username": "tomj",
+    "password": "password123admin",
+    "role": "admin"
+}
+Returns:
+{
+    "authenticated": true,
+    "user": "tomj"
+}

@@ -1,10 +1,16 @@
-import { getDemandData  } from "../controllers/dController"
+import { getDemandData  } from '../controllers/dController';
+import { verifyToken } from '../helpers/jwtTokenHelper';
 
 const routes = (app) => {
-    app.route("/demand")
+    app.route('/demand')
         .get((req, res, next) => {
-            // Middleware to Authorize the USER;
-            next();
+            const token = req.headers['x-access-token'];
+            if(verifyToken(token, process.env.TOKEN_KEY)) {
+                next();
+            }
+            else {
+                res.status(401).send('User not authenticated');
+            }
         }, (req, res, next) => {
             try {
                 const data = getDemandData(req.query);
@@ -14,12 +20,12 @@ const routes = (app) => {
             }
         });
     
-    app.route("/job/:demandID")
+    app.route('/job/:demandID')
         .put((req, res) =>
-        res.send("PUT request successful!"))
+        res.send('PUT request successful!'))
 
         .delete((req, res) =>
-        res.send("DELETE request successful!"))
+        res.send('DELETE request successful!'))
 }
 
 export default routes;

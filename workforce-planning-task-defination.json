@@ -1,0 +1,25 @@
+{
+    "family": "workforce-planner-task",
+	"requiresCompatibilities": ["EC2"],
+    "containerDefinitions": [
+      {
+        "name": "workforce-planning-tool",
+        "image": "133000045839.dkr.ecr.eu-west-2.amazonaws.com/workforce-planner:latest",
+        "cpu": 128,
+        "memory": 300,
+        "portMappings": [
+            {
+                "containerPort": 4001,
+                "hostPort": 4001
+            }
+        ],
+        "essential": true,
+        "environment": [
+            {
+                "name": "workforce-planning",
+                "value": "production"
+            }
+        ]
+      }
+    ]
+  }

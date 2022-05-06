@@ -1,10 +1,16 @@
-import { getSupplyDemandData  } from "../controllers/sdController"
+import { getSupplyDemandData  } from '../controllers/sdController';
+import { verifyToken } from '../helpers/jwtTokenHelper';
 
 const routes = (app) => {
     app.route("/dashboard")
         .get((req, res, next) => {
-            // Middleware to Authorize the USER;
-            next();
+            const token = req.headers["x-access-token"];
+            if(verifyToken(token, process.env.TOKEN_KEY)) {
+                next();
+            }
+            else {
+                res.status(401).send('User not authenticated');
+            }
         }, (req, res, next) => {
             try {
                 const data = getSupplyDemandData();

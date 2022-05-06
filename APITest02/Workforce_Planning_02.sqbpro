@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/tjames/Documents/Sagar_Workforce_Activity/GitLab/workforce_planning_tool/Workforce_Planning_02.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="browser pragmas query structure" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="150"/><column_width id="3" width="1960"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainDemand"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Clients" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="95"/><column index="2" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Demand" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="4" mode="0"/></sort><column_widths><column index="1" value="149"/><column index="2" value="176"/><column index="3" value="95"/><column index="4" value="118"/><column index="5" value="122"/><column index="6" value="109"/><column index="7" value="73"/><column index="8" value="220"/><column index="9" value="76"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Skills" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="146"/><column index="3" value="61"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Supply" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="133"/><column index="2" value="136"/><column index="3" value="136"/><column index="4" value="78"/><column index="5" value="116"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">select demand_sq.'skill_name', demand_sq.'demand_count', supply_sq.'supply_count'
+from
+	(select Skills.SkillName as 'skill_name', count(Demand.SkillsID) as 'demand_count'
+	from Skills left join Demand 
+	on Skills.SkillsID = Demand.SkillsID
+	group by Skills.SkillName) demand_sq,
+	(select Skills.SkillName as 'skill_name', count(Supply.SkillsID) as 'supply_count'
+	from Skills left outer join Supply
+	on Skills.SkillsID = Supply.SkillsID
+	group by Skills.SkillName) supply_sq
+where demand_sq.'skill_name' = supply_sq.'skill_name'
+
+
+</sql><sql name="SQL 3">select *
+from Supply</sql><sql name="SQL 4">select *
+from Demand</sql><sql name="SQL 5">select Skills.SkillName as 'skill_name', count(Demand.SkillsID) as 'demand_count'
+from Skills left join Demand 
+on Skills.SkillsID = Demand.SkillsID
+group by Skills.SkillName</sql><current_tab id="3"/></tab_sql></sqlb_project>
