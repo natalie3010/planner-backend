@@ -33,7 +33,6 @@
     stage: deploy
     script:
         - echo "Registering new container definition..."
-        - REVISION="$(aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json | sed -n '/"revision":\ [0-9]*/p' | awk -F:\ '{print $2}' | sed -r 's/,//g')"
         - REVISION=$(aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json | sed -n '/"revision":\ [0-9]*/p' | tr -d '"revision":' | tr -d ',')
         - echo "Updating the service..."
         - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
