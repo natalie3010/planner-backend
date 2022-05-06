@@ -21,7 +21,7 @@
     stage: build
     script:
         - echo "Building image..."
-        - docker build -t workforce-planner APITest02
+        - docker build -t workforce-planner:latest APITest02
         - echo "Tagging image..."
         - docker tag workforce-planner:latest $REPOSITORY_URL:latest
         - echo "Pushing image..."
@@ -32,12 +32,15 @@
   deploy:
     stage: deploy
     script:
-    #    - echo $REPOSITORY_URL:$IMAGE_TAG
-    #    - TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "${AWS_DEFAULT_REGION}")
-    #    - NEW_CONTAINER_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "$REPOSITORY_URL:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0]')
-    #    - echo "Registering new container definition..."
-        - aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json
+        - echo "Registering new container definition..."
+        - REVISION="$(aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json | sed -n '/"revision":\ [0-9]*/p' | awk -F:\ '{print $2}' | sed -r 's/,//g')"
+        - REVISION=$(aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json | sed -n '/"revision":\ [0-9]*/p' | tr -d '"revision":' | tr -d ',')
         - echo "Updating the service..."
         - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
+        - for ((i=1; i<$REVISION; i++))
+          do
+            sleep 0.5s
+            aws ecs deregister-task-definition --task-definition workforce-planner-task:$i
+          done
     only:
         - main
