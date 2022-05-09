@@ -1,13 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import routes from './src/routes/sdRoutes';
-import supplyRoute from './src/routes/sRoutes';
-import loginRoute from './src/routes/loginRoute';
-import logoutRoute from './src/routes/logoutRoute';
-import demandRoute from './src/routes/dRoutes';
-import securityRoute from './src/routes/securityRoute'
+import authenticationRoutes from './src/routes/authenticationRoutes';
+import protectedRoutes from './src/routes/protectedRoutes';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import https from 'https';
+import fs from 'fs';
 
 const app = express();
 const COOKIE_MAX_AGE = 1000 * 60 * 60 * 2;
@@ -23,18 +21,25 @@ app.use(bodyParser.json());
 
 const PORT = process.env.PORT;
 
-// Is this the best way of doing this (i.e. passing the app to each individual route?)
-routes(app); 
-loginRoute(app);
-logoutRoute(app);
-supplyRoute(app);
-demandRoute(app);
-securityRoute(app);
+app.use('/api/', protectedRoutes);
+app.use('/auth/', authenticationRoutes);
+
 
 app.get('/', (req, res) =>
     res.send(`Node and express server running on port ${PORT}`)
 );
 
-app.listen(PORT, () =>
-    console.log(`Your server is running on port ${PORT}`)
-);
+console.log(__dirname);
+https
+  .createServer(
+    {
+      key: fs.readFileSync("server.key"),
+      cert: fs.readFileSync("server.cert"),
+    },
+    app
+  )
+  .listen(PORT, function () {
+    console.log(
+      `Express server listening on port ${PORT}! Go to https://localhost:${PORT}/`
+    );
+  });
