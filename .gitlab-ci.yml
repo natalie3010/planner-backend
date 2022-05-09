@@ -35,7 +35,7 @@
         #- echo "Updating the service..."
         #- aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
         - |+ 
-          for i in $(seq 1 $(seq REVISION - 1))
+          for i in $(seq 1 $(seq $REVISION - 1))
           do 
             #sleep 0.5s
             echo $i
