@@ -4,11 +4,11 @@
   stages: 
   #  - build
     - deploy
-  before_script:
-        - apk add --no-cache curl jq python3 py3-pip
-        - pip install awscli
-        - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
-        - IMAGE_TAG="$(echo $CI_COMMIT_SHA | head -c 8)"
+  #before_script:
+        #- apk add --no-cache curl jq python3 py3-pip
+        #- pip install awscli
+        #- aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+        #- IMAGE_TAG="$(echo $CI_COMMIT_SHA | head -c 8)"
   variables:
     REPOSITORY_URL: $DOCKER_REGISTRY/$APP_NAME
     TASK_DEFINITION_NAME: workforce-planner-task
@@ -30,15 +30,17 @@
     stage: deploy
     script:
         - echo "Registering new container definition..."
-        - REVISION=$(aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json | sed -n '/"revision":\ [0-9]*/p' | tr -d '"revision":' | tr -d ',') - 1
+        #- REVISION=$(aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json | sed -n '/"revision":\ [0-9]*/p' | tr -d '"revision":' | tr -d ',') - 1
+        - REVISION=($(echo '"revision":\ 9,' | sed -n '/"revision":\ [0-9]*/p' | tr -d '"revision":' | tr -d ',') - 1)
         - echo $REVISION
-        - echo "Updating the service..."
-        - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
+        #- echo "Updating the service..."
+        #- aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
         - |+ 
           for i in $(seq 1 $REVISION)
           do 
             sleep 0.5s
-            aws ecs deregister-task-definition --task-definition workforce-planner-task:$i
+            echo $i
+            #aws ecs deregister-task-definition --task-definition workforce-planner-task:$i
           done
     only:
         - main
