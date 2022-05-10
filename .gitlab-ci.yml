@@ -32,6 +32,7 @@
         - echo "Registering new container definition..."
         #- REVISION=$(aws ecs register-task-definition --cli-input-json file://workforce-planning-task-defination.json | sed -n '/"revision":\ [0-9]*/p' | tr -d '"revision":' | tr -d ',') - 1
         - REVISION=$(echo '"revision":\ 9,' | sed -n '/"revision":\ [0-9]*/p' | tr -d '"revision":' | tr -d ',')
+        - echo $REVISION
         - LAST_INDEX_TO_DISABLE=$(expr $REVISION - 1)
         - echo $LAST_INDEX_TO_DISABLE
         #- echo "Updating the service..."
