@@ -2,6 +2,7 @@ import { Router } from 'express';
 import dashboardRoutes from './dashboardRoutes';
 import supplyRoutes from './supplyRoutes';
 import demandRoutes from './demandRoutes';
+import skillsRoutes from './skillsRoutes';
 import userRoutes from './userRoutes';
 import { verifyToken } from '../helpers/jwtTokenHelper';
 
@@ -22,6 +23,7 @@ protectedRoutes.route('/*').all(function (req, res, next) {
 protectedRoutes.use('/dashboard', dashboardRoutes);
 protectedRoutes.use('/supply', supplyRoutes);
 protectedRoutes.use('/demand', demandRoutes);
-protectedRoutes.use('/user', userRoutes)
+protectedRoutes.use('/skills', skillsRoutes);
+protectedRoutes.use('/user', userRoutes);
 
 export default protectedRoutes;

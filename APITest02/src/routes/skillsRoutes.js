@@ -1,16 +1,17 @@
 
-import { getDemandData  } from '../controllers/dController';
+import { getSkillsData  } from '../controllers/skillsController';
 import { getApplicationAccessControlDefinition } from '../helpers/accessControlHelper';
 import { Router } from 'express';
 import { AccessControl } from 'accesscontrol';
 
-const demandRoutes = Router();
+const skillsRoutes = Router();
 
-demandRoutes.get('/', (req, res) => {
+skillsRoutes.get('/', (req, res) => {
         const accessControl = new AccessControl(getApplicationAccessControlDefinition())
-        if(accessControl.can(req.decodedToken.role).readAny('demand').granted) {
+        if(accessControl.can(req.decodedToken.role).updateAny('demand').granted
+            || accessControl.can(req.decodedToken.role).updateAny('supply').granted) {
             try {
-                const data = getDemandData(req.query);
+                const data = getSkillsData();
                 res.status(200).json(data);
             } catch(err) {
                 res.status(500).json({ message: `Request failed with ${err}`});
@@ -21,9 +22,5 @@ demandRoutes.get('/', (req, res) => {
         }
     }
 );
-    
-demandRoutes.put('/job/:demandID', (req, res) =>
-    res.send('PUT request successful!')
-).delete((req, res) => res.send('DELETE request successful!'))
 
-export default demandRoutes;
+export default skillsRoutes;

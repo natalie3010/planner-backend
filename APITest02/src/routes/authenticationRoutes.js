@@ -6,7 +6,7 @@ const authenticationRoutes = Router();
 
 authenticationRoutes.post('/login',(req, res) => {
         try {
-            let { username, password } = req.body.body;
+            let { username, password } = req.body;
             const user = getMatchingUser(username, password);
             if (user) {
                 const token = generateToken(

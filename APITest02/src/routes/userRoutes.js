@@ -1,12 +1,12 @@
 import { addNewUser  } from "../controllers/userController"
-import { applicationAccessControlDefinition } from '../helpers/accessControlHelper';
+import { getApplicationAccessControlDefinition } from '../helpers/accessControlHelper';
 import { Router } from 'express';
 import { AccessControl } from 'accesscontrol';
 
 const userRoutes = Router();
 
 userRoutes.post('/', (req, res) => {
-        const accessControl = new AccessControl(applicationAccessControlDefinition)
+        const accessControl = new AccessControl(getApplicationAccessControlDefinition())
         if(accessControl.can(req.decodedToken.role).createAny('user').granted) {
             try {
                 const data = addNewUser(req.body.body);
