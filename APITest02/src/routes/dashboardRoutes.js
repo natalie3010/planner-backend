@@ -1,12 +1,12 @@
 import { getSupplyDemandData  } from '../controllers/sdController';
-import { applicationAccessControlDefinition } from '../helpers/accessControlHelper';
+import { getApplicationAccessControlDefinition } from '../helpers/accessControlHelper';
 import { AccessControl } from 'accesscontrol';
 import { Router } from 'express';
 
 const dashboardRoutes = Router();
 
 dashboardRoutes.get('/', (req, res) => {
-        const accessControl = new AccessControl(applicationAccessControlDefinition)
+        const accessControl = new AccessControl(getApplicationAccessControlDefinition())
         if(accessControl.can(req.decodedToken.role).readAny('dashboard').granted) {
             try {
                 const data = getSupplyDemandData();

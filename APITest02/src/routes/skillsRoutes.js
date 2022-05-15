@@ -1,15 +1,17 @@
-import { addNewUser  } from "../controllers/userController"
+
+import { getSkillsData  } from '../controllers/skillsController';
 import { getApplicationAccessControlDefinition } from '../helpers/accessControlHelper';
 import { Router } from 'express';
 import { AccessControl } from 'accesscontrol';
 
-const userRoutes = Router();
+const skillsRoutes = Router();
 
-userRoutes.post('/', (req, res) => {
+skillsRoutes.get('/', (req, res) => {
         const accessControl = new AccessControl(getApplicationAccessControlDefinition())
-        if(accessControl.can(req.decodedToken.role).createAny('user').granted) {
+        if(accessControl.can(req.decodedToken.role).updateAny('demand').granted
+            || accessControl.can(req.decodedToken.role).updateAny('supply').granted) {
             try {
-                const data = addNewUser(req.body.body);
+                const data = getSkillsData();
                 res.status(200).json(data);
             } catch(err) {
                 res.status(500).json({ message: `Request failed with ${err}`});
@@ -21,4 +23,4 @@ userRoutes.post('/', (req, res) => {
     }
 );
 
-export default userRoutes;
+export default skillsRoutes;

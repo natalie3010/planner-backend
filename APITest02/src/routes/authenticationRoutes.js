@@ -6,7 +6,7 @@ const authenticationRoutes = Router();
 
 authenticationRoutes.post('/login',(req, res) => {
         try {
-            let { username, password } = req.body.body;
+            let { username, password } = req.body;
             const user = getMatchingUser(username, password);
             if (user) {
                 const token = generateToken(
@@ -16,7 +16,7 @@ authenticationRoutes.post('/login',(req, res) => {
                         role: user.Role
                     }, 
                     process.env.TOKEN_KEY, 
-                    '15m'
+                    process.env.TOKEN_EXPIRES_IN
                 );
 
                 const refreshToken = generateToken(
@@ -26,7 +26,7 @@ authenticationRoutes.post('/login',(req, res) => {
                         role: user.Role
                     }, 
                     process.env.REFRESH_TOKEN_KEY, 
-                    '4h'
+                    process.env.REFRESH_TOKEN_EXPIRES_IN
                 );
                     
                 res.status(200).json({
@@ -66,7 +66,7 @@ authenticationRoutes.post('/refresh-token',(req, res) => {
                         role: decodedRefreshToken.role
                     }, 
                     process.env.TOKEN_KEY, 
-                    '15m'
+                    process.env.TOKEN_EXPIRES_IN
                 );
 
                 res.status(200).json({
