@@ -3,6 +3,7 @@ import dashboardRoutes from './dashboardRoutes';
 import supplyRoutes from './supplyRoutes';
 import demandRoutes from './demandRoutes';
 import skillsRoutes from './skillsRoutes';
+import clientsRoutes from './clientsRoutes';
 import userRoutes from './userRoutes';
 import { verifyToken } from '../helpers/jwtTokenHelper';
 
@@ -24,6 +25,7 @@ protectedRoutes.use('/dashboard', dashboardRoutes);
 protectedRoutes.use('/supply', supplyRoutes);
 protectedRoutes.use('/demand', demandRoutes);
 protectedRoutes.use('/skills', skillsRoutes);
+protectedRoutes.use('/clients', clientsRoutes);
 protectedRoutes.use('/user', userRoutes);
 
 export default protectedRoutes;

@@ -24,8 +24,8 @@ export const getSupplyData = (selectedSkills) => {
 	return data;
 }
 
-export const getSupplyByID = (selectedSkills) => {
-    let data = db.prepare(SQL_QUERY_GET_SUPPLY_BY_ID).get(selectedSkills);
+export const getSupplyByID = (selectedSkillsID) => {
+    let data = db.prepare(SQL_QUERY_GET_SUPPLY_BY_ID).get(selectedSkillsID);
     console.log(data);
 	return data;
 }
