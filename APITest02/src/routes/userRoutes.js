@@ -9,7 +9,7 @@ userRoutes.post('/', (req, res) => {
         const accessControl = new AccessControl(getApplicationAccessControlDefinition())
         if(accessControl.can(req.decodedToken.role).createAny('user').granted) {
             try {
-                const data = addNewUser(req.body.body);
+                const data = addNewUser(req.body);
                 res.status(200).json(data);
             } catch(err) {
                 res.status(500).json({ message: `Request failed with ${err}`});
