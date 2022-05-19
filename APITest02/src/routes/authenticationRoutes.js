@@ -56,7 +56,7 @@ authenticationRoutes.get('/logout',(req, res) => {
 
 authenticationRoutes.post('/refresh-token',(req, res) => {
     try {
-        let { refreshToken } = req.body.body;
+        let { refreshToken } = req.body;
         let decodedRefreshToken = verifyToken(refreshToken, process.env.REFRESH_TOKEN_KEY);
             if(decodedRefreshToken) {
                 const token = generateToken(
