@@ -19,6 +19,7 @@ const getPermissions = function() {
                 {
                     'update:any': ['*'],
                     'delete:any': ['*'],
+                    'create:any': ['*']
                 }   
             )
         }
@@ -32,6 +33,7 @@ const getPermissions = function() {
                 {
                     'update:any': ['*'],
                     'delete:any': ['*'],
+                    'create:any': ['*']
                 }   
             )
         }
@@ -42,6 +44,7 @@ const getPermissions = function() {
             'read:any': ['*'],
             'update:any': ['*'],
             'delete:any': ['*'],
+            'create:any': ['*']
         },
     });
 
