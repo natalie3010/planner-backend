@@ -3,6 +3,7 @@ import sqlite3 from 'better-sqlite3';
 const db = new sqlite3("./Workforce_Planning_02.db", {fileMustExist: true});
 
 const SQL_QUERY_GET_DEMAND_BY_SKILLS = `SELECT * FROM 'Demand', 'Skills' WHERE Skills.SkillsID=Demand.SkillsID AND Skills.SkillName=?`;
+const SQL_QUERY_GET_ALL_DEMAND = `SELECT * FROM 'Demand'`;
 const SQL_QUERY_GET_DEMAND_BY_ID = `SELECT * FROM 'Demand' WHERE DemandID=?`;
 const SQL_QUERY_DELETE_DEMAND_BY_ID = `DELETE FROM 'Demand' WHERE DemandID=?`;
 const SQL_QUERY_ADD_NEW_DEMAND = `INSERT INTO Demand(CodeRequisition, StartDate, ClientID, OriginatorName, SkillsID, Probability, Grade, SelectedApplicant, Status, Notes, ProposedApplicant, CreationDate, Location) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -26,8 +27,14 @@ const SQL_QUERY_UPDATE_DEMAND = `
         DemandID = ?
     `;
 
-export const getDemandData = (req, res) => {
-    let data = db.prepare(SQL_QUERY_GET_DEMAND_BY_SKILLS).all(req.selectedSkills);
+export const getDemandData = (selectedSkills) => {
+    let data = db.prepare(SQL_QUERY_GET_DEMAND_BY_SKILLS).all(selectedSkills);
+    console.log(data);
+	return data;
+}
+
+export const getAllDemand = () => {
+    let data = db.prepare(SQL_QUERY_GET_ALL_DEMAND).all();
     console.log(data);
 	return data;
 }
