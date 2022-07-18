@@ -1,6 +1,6 @@
 import sqlite3 from 'better-sqlite3';
 
-const db = new sqlite3("/etc/sqlite/Workforce_Planning_02.db", {fileMustExist: false});
+const db = new sqlite3("/var/lib/ecs/volumes/ecs-workforce-planner-task-28-sqlite-volume-c88599aeeff0a083e301/Workforce_Planning_02.db", {fileMustExist: false});
 
 const matching_user_sql_query = `SELECT UserId, Username, Role FROM Users WHERE Username=? AND Password=?`;
 const insert_user_sql_query = `INSERT INTO Users ('Username', 'Password', 'Role') VALUES (?, ?, ?)`;
