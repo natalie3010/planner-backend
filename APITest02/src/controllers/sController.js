@@ -1,9 +1,8 @@
 import sqlite3 from 'better-sqlite3';
 
-const db = new sqlite3("./Workforce_Planning_02.db", {fileMustExist: true});
+const db = new sqlite3("/etc/sqlite/Workforce_Planning_02.db", {fileMustExist: false});
 
-const SQL_QUERY_GET_SUPPLY_BY_SKILLS = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName=? OR NULL`;
-const SQL_QUERY_GET_ALL_SUPPLY = `SELECT * FROM 'Supply'`;
+const SQL_QUERY_GET_SUPPLY_BY_SKILLS = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName LIKE ?`;
 const SQL_QUERY_GET_SUPPLY_BY_ID = `SELECT * FROM 'Supply' WHERE ApplicantID=?`;
 const SQL_QUERY_DELETE_SUPPLY_BY_ID = `DELETE FROM 'Supply' WHERE ApplicantID=?`;
 const SQL_QUERY_ADD_NEW_SUPPLY = `INSERT INTO Supply(ApplicantFirstName, ApplicantLastName, SkillsID, ApplicantStatus, Notes, ApplicantType, Location) VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -28,7 +27,7 @@ export const getAllSupply = () => {
     }
 
 export const getSupplyData = (selectedSkills) => {
-    let data = db.prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS).all(selectedSkills);
+    let data = db.prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS).all(selectedSkills || '%');
     console.log(data);
 	return data;
 }
