@@ -1,16 +1,16 @@
 
-import { getDemandData, getAllDemand, getDemandByID, updateExistingDemand, deleteDemandByID, addNewDemand } from '../controllers/dController';
+import { getDemandData, getDemandByID, updateExistingDemand, deleteDemandByID, addNewDemand } from '../controllers/dController';
 import { getApplicationAccessControlDefinition } from '../helpers/accessControlHelper';
 import { Router } from 'express';
 import { AccessControl } from 'accesscontrol';
 
 const demandRoutes = Router();
 
-demandRoutes.get('/:selectedSkills', (req, res) => {
+demandRoutes.get('/', (req, res) => {
         const accessControl = new AccessControl(getApplicationAccessControlDefinition())
         if(accessControl.can(req.decodedToken.role).readAny('demand').granted) {
             try {
-                const data = getDemandData(req.params.selectedSkills);
+                const data = getDemandData(req.query.selectedSkills);
                 res.status(200).json(data);
             } catch(err) {
                 res.status(500).json({ message: `Request failed with ${err}`});
@@ -20,22 +20,6 @@ demandRoutes.get('/:selectedSkills', (req, res) => {
             res.status(403).json('User not authorised to proceed');
         }
     }
-);
-
-demandRoutes.get('/', (req, res) => {
-    const accessControl = new AccessControl(getApplicationAccessControlDefinition())
-    if(accessControl.can(req.decodedToken.role).readAny('demand').granted) {
-        try {
-            const data = getAllDemand();
-            res.status(200).json(data);
-        } catch(err) {
-            res.status(500).json({ message: `Request failed with ${err}`});
-        }
-    }
-    else {
-        res.status(403).json('User not authorised to proceed');
-    }
-}
 );
     
 demandRoutes.get('/:demandID', (req, res) => {

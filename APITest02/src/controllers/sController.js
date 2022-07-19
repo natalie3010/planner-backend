@@ -20,12 +20,6 @@ const SQL_QUERY_UPDATE_SUPPLY = `
         ApplicantID = ?
     `;
 
-export const getAllSupply = () => {
-    let data = db.prepare(SQL_QUERY_GET_ALL_SUPPLY).all();
-    console.log(data);
-    return data;
-    }
-
 export const getSupplyData = (selectedSkills) => {
     let data = db.prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS).all(selectedSkills || '%');
     console.log(data);
