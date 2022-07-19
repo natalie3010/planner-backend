@@ -1,6 +1,6 @@
 import sqlite3 from 'better-sqlite3';
 
-const db = new sqlite3("/var/lib/ecs/volumes/ecs-workforce-planner-task-28-sqlite-volume-c88599aeeff0a083e301/Workforce_Planning_02.db", {fileMustExist: false});
+const db = new sqlite3("./Workforce_Planning_02.db", {fileMustExist: false});
 
 const SQL_QUERY_GET_DEMAND_BY_SKILLS = `SELECT * FROM 'Demand', 'Skills' WHERE Skills.SkillsID=Demand.SkillsID AND Skills.SkillName LIKE ?`;
 const SQL_QUERY_GET_DEMAND_BY_ID = `SELECT * FROM 'Demand' WHERE DemandID=?`;
