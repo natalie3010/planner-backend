@@ -1,6 +1,6 @@
 import sqlite3 from 'better-sqlite3';
 
-const db = new sqlite3("./Workforce_Planning_02.db", {fileMustExist: false});
+const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {fileMustExist: false});
 
 const SQL_QUERY_GET_SUPPLY_BY_SKILLS = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName LIKE ?`;
 const SQL_QUERY_GET_SUPPLY_BY_ID = `SELECT * FROM 'Supply' WHERE ApplicantID=?`;
