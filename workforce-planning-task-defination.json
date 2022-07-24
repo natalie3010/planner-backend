@@ -31,20 +31,20 @@
     ],
     "volumes": [
         {
-        "fsxWindowsFileServerVolumeConfiguration": null,
-        "efsVolumeConfiguration": {
-            "transitEncryptionPort": null,
-            "fileSystemId": "fs-0f34f947d8439e37f",
-            "authorizationConfig": {
-            "iam": "DISABLED",
-            "accessPointId": null
+            "fsxWindowsFileServerVolumeConfiguration": null,
+            "efsVolumeConfiguration": {
+                "transitEncryptionPort": null,
+                "fileSystemId": "fs-0f34f947d8439e37f",
+                "authorizationConfig": {
+                "iam": "DISABLED",
+                "accessPointId": null
+                },
+                "transitEncryption": "DISABLED",
+                "rootDirectory": "/"
             },
-            "transitEncryption": "DISABLED",
-            "rootDirectory": "/"
-        },
-        "name": "sqlite-volume",
-        "host": null,
-        "dockerVolumeConfiguration": null
+            "name": "sqlite-volume",
+            "host": null,
+            "dockerVolumeConfiguration": null
         }
-    ],
+    ]
   }
