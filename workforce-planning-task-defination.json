@@ -34,7 +34,7 @@
             "efsVolumeConfiguration": {
                 "fileSystemId": "fs-0f34f947d8439e37f",
                 "authorizationConfig": {
-                "iam": "DISABLED",
+                "iam": "DISABLED"
                 },
                 "transitEncryption": "DISABLED",
                 "rootDirectory": "/"
