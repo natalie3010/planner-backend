@@ -39,7 +39,7 @@
                 "transitEncryption": "DISABLED",
                 "rootDirectory": "/"
             },
-            "name": "sqlite-volume",
+            "name": "sqlite-volume"
         }
     ]
   }
