@@ -19,7 +19,32 @@
                 "name": "workforce-planning",
                 "value": "production"
             }
+        ],
+        "mountPoints": [
+            {
+            "readOnly": null,
+            "containerPath": "/mnt/sqlite-volume",
+            "sourceVolume": "sqlite-volume"
+            }
         ]
       }
-    ]
+    ],
+    "volumes": [
+        {
+        "fsxWindowsFileServerVolumeConfiguration": null,
+        "efsVolumeConfiguration": {
+            "transitEncryptionPort": null,
+            "fileSystemId": "fs-0f34f947d8439e37f",
+            "authorizationConfig": {
+            "iam": "DISABLED",
+            "accessPointId": null
+            },
+            "transitEncryption": "DISABLED",
+            "rootDirectory": "/"
+        },
+        "name": "sqlite-volume",
+        "host": null,
+        "dockerVolumeConfiguration": null
+        }
+    ],
   }
