@@ -16,3 +16,9 @@ export const addNewUser = (newUser) => {
     console.log(data);
 	return data;
 }
+
+export const getMatchingUserV2 = (loginUser) => {
+    let data = db.prepare(matching_user_sql_query).get(loginUser.usernameLogin, loginUser.passwordLogin);
+    console.log(data);
+	return data;
+}
