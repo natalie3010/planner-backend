@@ -1,6 +1,6 @@
 import sqlite3 from 'better-sqlite3';
 
-const db = new sqlite3("./Workforce_Planning_02.db", {fileMustExist: false});
+const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {fileMustExist: false});
 
 const sql_query = 
 

@@ -1,6 +1,6 @@
 import sqlite3 from 'better-sqlite3';
 
-const db = new sqlite3("./Workforce_Planning_02.db", {fileMustExist: false});
+const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {fileMustExist: false});
 
 const SQL_QUERY_SELECT_ALL_CLIENTS = `select * from 'Clients'`;
 const SQL_QUERY_DELETE_CLIENT_BY_ID = `DELETE FROM 'Clients' WHERE ClientID=?`;
