@@ -6,6 +6,8 @@ import skillsRoutes from './skillsRoutes';
 import clientsRoutes from './clientsRoutes';
 import userRoutes from './userRoutes';
 import { verifyToken } from '../helpers/jwtTokenHelper';
+import supplyRoutesV2 from './supplyRoutesV2';
+import demandRoutesV2 from './demandRoutesV2';
 
 const protectedRoutes = Router();
 
@@ -27,5 +29,8 @@ protectedRoutes.use('/demand', demandRoutes);
 protectedRoutes.use('/skills', skillsRoutes);
 protectedRoutes.use('/clients', clientsRoutes);
 protectedRoutes.use('/user', userRoutes);
+
+protectedRoutes.use('/v2/supply', supplyRoutesV2);
+protectedRoutes.use('/v2/demand', demandRoutesV2);
 
 export default protectedRoutes;
