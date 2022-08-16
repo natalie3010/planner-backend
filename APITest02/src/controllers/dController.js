@@ -75,9 +75,7 @@ export const getDemandByIDV2 = (selectedSkillsID) => {
 
 export const addNewDemandV2 = (demand) => {
     let response = db.prepare(SQL_QUERY_ADD_NEW_DEMAND).run(demand.demandCodeRequisition, demand.demandStartDate, demand.demandClientID, demand.demandOriginatorName, demand.demandSkills, demand.demandProbability, demand.demandGrade, demand.demandSelectedApplicant, demand.demandStatus, demand.demandNotes, demand.demandProposedApplicant, demand.demandCreationDate, demand.demandLocation);
-    console.log(response);
-    demand.demandID = response.lastInsertRowid;
-	return demand;
+	return response.lastInsertRowid || -1;
 }
 
 export const updateExistingDemandV2 = (demand, demandID) => {
