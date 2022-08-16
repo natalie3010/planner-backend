@@ -33,8 +33,8 @@ console.log(__dirname);
 https
   .createServer(
     {
-      key: fs.readFileSync("server.key"),
-      cert: fs.readFileSync("server.crt"),
+      key: fs.readFileSync("/mnt/sqlite-volume/server.key"),
+      cert: fs.readFileSync("/mnt/sqlite-volume/server.crt"),
     },
     app
   )
