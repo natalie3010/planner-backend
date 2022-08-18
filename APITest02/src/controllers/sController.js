@@ -71,10 +71,8 @@ export const getSupplyByIDV2 = (selectedSkillsID) => {
 }
 
 export const addNewSupplyV2 = (supply) => {
-    console.log(supply);
     let response = db.prepare(SQL_QUERY_ADD_NEW_SUPPLY).run(supply.applicantFirstName, supply.applicantLastName, supply.applicantSkills, supply.applicantStatus, supply.applicantNotes, supply.applicantType, supply.applicantLocation);
-    supply.applicantID = response.lastInsertRowid;
-	return supply;
+	return response.lastInsertRowid || -1;
 }
 
 export const updateExistingSupplyV2 = (supply, applicantID) => {

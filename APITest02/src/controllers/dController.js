@@ -1,7 +1,9 @@
-import sqlite3 from 'better-sqlite3';
-import {DemandMapper} from '../helpers/mappers/demandMapper';
+import sqlite3 from "better-sqlite3";
+import { DemandMapper } from "../helpers/mappers/demandMapper";
 
-const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {fileMustExist: false});
+const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {
+  fileMustExist: false,
+});
 
 const SQL_QUERY_GET_DEMAND_BY_SKILLS = `SELECT * FROM 'Demand', 'Skills' WHERE Skills.SkillsID=Demand.SkillsID AND Skills.SkillName LIKE ?`;
 const SQL_QUERY_GET_DEMAND_BY_ID = `SELECT * FROM 'Demand' WHERE DemandID=?`;
@@ -27,61 +29,129 @@ const SQL_QUERY_UPDATE_DEMAND = `
         DemandID = ?
     `;
 
-export const getDemandData = (req, res) => {
-    let rowDemands = db.prepare(SQL_QUERY_GET_DEMAND_BY_SKILLS).all(req.selectedSkills || '%');
-    console.log(rowDemands);
-	return rowDemands;
-}
+export const getDemandData = (selectedSkills) => {
+  let rowDemands = db
+    .prepare(SQL_QUERY_GET_DEMAND_BY_SKILLS)
+    .all(selectedSkills || "%");
+  console.log(rowDemands);
+  return rowDemands;
+};
 
 export const getDemandByID = (selectedSkillsID) => {
-    let rowDemand = db.prepare(SQL_QUERY_GET_DEMAND_BY_ID).get(selectedSkillsID);
-	return rowDemand;
-}
+  let rowDemand = db.prepare(SQL_QUERY_GET_DEMAND_BY_ID).get(selectedSkillsID);
+  return rowDemand;
+};
 
 export const deleteDemandByID = (demandID) => {
-    let response = db.prepare(SQL_QUERY_DELETE_DEMAND_BY_ID).run(demandID);
-    console.log(data);
-	return response.changes === 1;
-}
+  let response = db.prepare(SQL_QUERY_DELETE_DEMAND_BY_ID).run(demandID);
+  console.log(data);
+  return response.changes === 1;
+};
 
 export const addNewDemand = (demand) => {
-    let data = db.prepare(SQL_QUERY_ADD_NEW_DEMAND).run(demand.codeRequisition, demand.startDate, demand.clientID, demand.originatorName, demand.skillsID, demand.probability, demand.grade, demand.selectedApplicant, demand.status, demand.notes, demand.proposedApplicant, demand.creationDate, demand.location);
-    console.log(data);
-	return data;
-}
+  let data = db
+    .prepare(SQL_QUERY_ADD_NEW_DEMAND)
+    .run(
+      demand.codeRequisition,
+      demand.startDate,
+      demand.clientID,
+      demand.originatorName,
+      demand.skillsID,
+      demand.probability,
+      demand.grade,
+      demand.selectedApplicant,
+      demand.status,
+      demand.notes,
+      demand.proposedApplicant,
+      demand.creationDate,
+      demand.location
+    );
+  console.log(data);
+  return data;
+};
 
 export const updateExistingDemand = (demand, demandID) => {
-    let data = db.prepare(SQL_QUERY_UPDATE_DEMAND).run(demand.codeRequisition, demand.startDate, demand.clientID, demand.originatorName, demand.skillsID, demand.probability, demand.grade, demand.selectedApplicant, demand.status, demand.notes, demand.proposedApplicant, demand.creationDate, demand.location, demandID);
-    console.log(data);
-	return data;
-}
+  let data = db
+    .prepare(SQL_QUERY_UPDATE_DEMAND)
+    .run(
+      demand.codeRequisition,
+      demand.startDate,
+      demand.clientID,
+      demand.originatorName,
+      demand.skillsID,
+      demand.probability,
+      demand.grade,
+      demand.selectedApplicant,
+      demand.status,
+      demand.notes,
+      demand.proposedApplicant,
+      demand.creationDate,
+      demand.location,
+      demandID
+    );
+  console.log(data);
+  return data;
+};
 
 //V2 versions of the controller with the new model, the V1 will be comissioned whenever the switch is done on react app
-export const getDemandDataV2 = (req, res) => {
-    let rowDemands = db.prepare(SQL_QUERY_GET_DEMAND_BY_SKILLS).all(req.selectedSkills || '%');
-    let demands = [];
-    rowDemands.forEach((rowDemand) => {
-        demands.push(DemandMapper.mapToDemand(rowDemand))
-    });
-    console.log(demands);
-	return demands;
-}
+export const getDemandDataV2 = (selectedSkills) => {
+  let rowDemands = db
+    .prepare(SQL_QUERY_GET_DEMAND_BY_SKILLS)
+    .all(selectedSkills || "%");
+  let demands = [];
+  rowDemands.forEach((rowDemand) => {
+    demands.push(DemandMapper.mapToDemand(rowDemand));
+  });
+  console.log(demands);
+  return demands;
+};
 
 export const getDemandByIDV2 = (selectedSkillsID) => {
-    let rowDemand = db.prepare(SQL_QUERY_GET_DEMAND_BY_ID).get(selectedSkillsID);
-    let demand = DemandMapper.mapToDemand(rowDemand);
-	return demand;
-}
+  let rowDemand = db.prepare(SQL_QUERY_GET_DEMAND_BY_ID).get(selectedSkillsID);
+  let demand = DemandMapper.mapToDemand(rowDemand);
+  return demand;
+};
 
 export const addNewDemandV2 = (demand) => {
-    let response = db.prepare(SQL_QUERY_ADD_NEW_DEMAND).run(demand.demandCodeRequisition, demand.demandStartDate, demand.demandClientID, demand.demandOriginatorName, demand.demandSkills, demand.demandProbability, demand.demandGrade, demand.demandSelectedApplicant, demand.demandStatus, demand.demandNotes, demand.demandProposedApplicant, demand.demandCreationDate, demand.demandLocation);
-    console.log(response);
-    demand.demandID = response.lastInsertRowid;
-	return demand;
-}
+  let response = db
+    .prepare(SQL_QUERY_ADD_NEW_DEMAND)
+    .run(
+      demand.demandCodeRequisition,
+      demand.demandStartDate,
+      demand.demandClientID,
+      demand.demandOriginatorName,
+      demand.demandSkills,
+      demand.demandProbability,
+      demand.demandGrade,
+      demand.demandSelectedApplicant,
+      demand.demandStatus,
+      demand.demandNotes,
+      demand.demandProposedApplicant,
+      demand.demandCreationDate,
+      demand.demandLocation
+    );
+  return response.lastInsertRowid || -1;
+};
 
 export const updateExistingDemandV2 = (demand, demandID) => {
-    let response = db.prepare(SQL_QUERY_UPDATE_DEMAND).run(demand.demandCodeRequisition, demand.demandStartDate, demand.demandClientID, demand.demandOriginatorName, demand.demandSkills, demand.demandProbability, demand.demandGrade, demand.demandSelectedApplicant, demand.demandStatus, demand.demandNotes, demand.demandProposedApplicant, demand.demandCreationDate, demand.demandLocation, demandID);
-    console.log(response);
-	return response.changes >= 1;
-}
+  let response = db
+    .prepare(SQL_QUERY_UPDATE_DEMAND)
+    .run(
+      demand.demandCodeRequisition,
+      demand.demandStartDate,
+      demand.demandClientID,
+      demand.demandOriginatorName,
+      demand.demandSkills,
+      demand.demandProbability,
+      demand.demandGrade,
+      demand.demandSelectedApplicant,
+      demand.demandStatus,
+      demand.demandNotes,
+      demand.demandProposedApplicant,
+      demand.demandCreationDate,
+      demand.demandLocation,
+      demandID
+    );
+  console.log(response);
+  return response.changes >= 1;
+};
