@@ -33,6 +33,7 @@ console.log(__dirname);
 https
   .createServer(
     {
+      ca: fs.readFileSync("/mnt/sqlite-volume/cabundle.crt"),
       key: fs.readFileSync("/mnt/sqlite-volume/server.key"),
       cert: fs.readFileSync("/mnt/sqlite-volume/server.crt"),
     },
