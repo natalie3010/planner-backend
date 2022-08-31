@@ -5,8 +5,8 @@ const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {
   fileMustExist: false,
 });
 
-const SQL_QUERY_GET_DEMAND_BY_SKILLS = `SELECT * FROM 'Demand', 'Skills' WHERE Skills.SkillsID=Demand.SkillsID AND Skills.SkillName LIKE ?`;
-const SQL_QUERY_GET_DEMAND_BY_ID = `SELECT * FROM 'Demand' WHERE DemandID=?`;
+const SQL_QUERY_GET_DEMAND_BY_SKILLS = `SELECT * FROM 'Demand', 'Skills', 'Clients' WHERE Skills.SkillsID=Demand.SkillsID AND Clients.ClientID=Demand.ClientID AND Skills.SkillName LIKE ?`;
+const SQL_QUERY_GET_DEMAND_BY_ID = `SELECT * FROM 'Demand', 'Clients' WHERE Clients.ClientID=Demand.ClientID AND DemandID=?`;
 const SQL_QUERY_DELETE_DEMAND_BY_ID = `DELETE FROM 'Demand' WHERE DemandID=?`;
 const SQL_QUERY_ADD_NEW_DEMAND = `INSERT INTO Demand(CodeRequisition, StartDate, ClientID, OriginatorName, SkillsID, Probability, Grade, SelectedApplicant, Status, Notes, ProposedApplicant, CreationDate, Location) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 const SQL_QUERY_UPDATE_DEMAND = `
@@ -39,6 +39,7 @@ export const getDemandData = (selectedSkills) => {
 
 export const getDemandByID = (selectedSkillsID) => {
   let rowDemand = db.prepare(SQL_QUERY_GET_DEMAND_BY_ID).get(selectedSkillsID);
+  console.log(rowDemand);
   return rowDemand;
 };
 
