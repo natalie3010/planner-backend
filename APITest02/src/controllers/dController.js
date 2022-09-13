@@ -39,7 +39,7 @@ export const getDemandData = (selectedSkills) => {
 
 export const getDemandByID = (selectedSkillsID) => {
   let rowDemand = db.prepare(SQL_QUERY_GET_DEMAND_BY_ID).get(selectedSkillsID);
-  console.log(rowDemand);
+  console.log("getDemandByID", rowDemand);
   return rowDemand;
 };
 
@@ -110,6 +110,7 @@ export const getDemandDataV2 = (selectedSkills) => {
 export const getDemandByIDV2 = (selectedSkillsID) => {
   let rowDemand = db.prepare(SQL_QUERY_GET_DEMAND_BY_ID).get(selectedSkillsID);
   let demand = DemandMapper.mapToDemand(rowDemand);
+  console.log("getDemandByIDV2", demand);
   return demand;
 };
 
