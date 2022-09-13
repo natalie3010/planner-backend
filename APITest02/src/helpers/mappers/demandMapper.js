@@ -6,7 +6,7 @@ export class DemandMapper {
       rowData.DemandID,
       rowData.CodeRequisition,
       rowData.StartDate,
-      rowData.ClientName,
+      rowData.ClientID,
       rowData.OriginatorName,
       rowData.SkillsID,
       rowData.Probability,
@@ -16,7 +16,8 @@ export class DemandMapper {
       rowData.Notes,
       rowData.ProposedApplicant,
       rowData.CreationDate,
-      rowData.Location
+      rowData.Location,
+      rowData.ClientName
     );
   }
 
