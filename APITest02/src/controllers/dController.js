@@ -107,6 +107,32 @@ export const getDemandDataV2 = (selectedSkills) => {
   return demands;
 };
 
+export const getDemandDataV2ASC = (selectedSkills, columnName) => {
+  columnName = columnName || "DemandID";
+  let rowDemands = db
+    .prepare(SQL_QUERY_GET_DEMAND_BY_SKILLS + `ORDER BY ${columnName} ASC`)
+    .all(selectedSkills || "%");
+  let demands = [];
+  rowDemands.forEach((rowDemand) => {
+    demands.push(DemandMapper.mapToDemand(rowDemand));
+  });
+  console.log(demands);
+  return demands;
+};
+
+export const getDemandDataV2DESC = (selectedSkills, columnName) => {
+  columnName = columnName || "DemandID";
+  let rowDemands = db
+    .prepare(SQL_QUERY_GET_DEMAND_BY_SKILLS + `ORDER BY ${columnName} DESC`)
+    .all(selectedSkills || "%");
+  let demands = [];
+  rowDemands.forEach((rowDemand) => {
+    demands.push(DemandMapper.mapToDemand(rowDemand));
+  });
+  console.log(demands);
+  return demands;
+};
+
 export const getDemandByIDV2 = (selectedSkillsID) => {
   let rowDemand = db.prepare(SQL_QUERY_GET_DEMAND_BY_ID).get(selectedSkillsID);
   let demand = DemandMapper.mapToDemand(rowDemand);
