@@ -31,18 +31,19 @@ supplyRoutesV2.get("/", (req, res) => {
   }
 });
 
-supplyRoutesV2.get("/ASC/:columnName", (req, res) => {
+supplyRoutesV2.get("/ASC", (req, res) => {
   const accessControl = new AccessControl(
     getApplicationAccessControlDefinition()
   );
   if (accessControl.can(req.decodedToken.role).readAny("supply").granted) {
     try {
-      const data = getSupplyDataV2ASC(req.params.columnName);
+      const data = getSupplyDataV2ASC(
+        req.query.selectedSkills,
+        req.params.columnName
+      );
       res.status(200).json(data);
     } catch (err) {
-      res
-        .status(500)
-        .json({ message: `Request failed with ${req.params.columnName}` });
+      res.status(500).json({ message: `Request failed with ${err}` });
     }
   } else {
     res.status(403).send("User not authenticated");
@@ -61,7 +62,9 @@ supplyRoutesV2.get("/DESC", (req, res) => {
       );
       res.status(200).json(data);
     } catch (err) {
-      res.status(500).json({ message: `Request failed with ${err}` });
+      res.status(500).json({
+        message: `Request failed with ${err} column ${req.params.columnName}`,
+      });
     }
   } else {
     res.status(403).send("User not authenticated");
