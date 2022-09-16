@@ -39,7 +39,7 @@ supplyRoutesV2.get("/ASC", (req, res) => {
     try {
       const data = getSupplyDataV2ASC(
         req.query.selectedSkills,
-        req.params.columnName
+        req.query.columnName
       );
       res.status(200).json(data);
     } catch (err) {
@@ -63,7 +63,7 @@ supplyRoutesV2.get("/DESC", (req, res) => {
       res.status(200).json(data);
     } catch (err) {
       res.status(500).json({
-        message: `Request failed with ${err} column ${req.params.columnName}`,
+        message: `Request failed with ${err}`,
       });
     }
   } else {

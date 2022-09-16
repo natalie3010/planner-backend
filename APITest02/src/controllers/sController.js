@@ -98,7 +98,7 @@ export const getSupplyDataV2 = (selectedSkills) => {
 export const getSupplyDataV2ASC = (selectedSkills, columnName) => {
   let rowSupplies = db
     .prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS_ASC)
-    .all(selectedSkills || "%", columnName + "" || "ApplicantID");
+    .all(selectedSkills || "%", columnName || "ApplicantID");
   console.log(rowSupplies);
   const supplies = [];
   rowSupplies.forEach((rowSupply) => {
