@@ -6,8 +6,8 @@ const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {
 });
 
 const SQL_QUERY_GET_SUPPLY_BY_SKILLS = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName LIKE ?`;
-const SQL_QUERY_GET_SUPPLY_BY_SKILLS_ASC = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName LIKE ? ORDER BY ? ASC`;
-const SQL_QUERY_GET_SUPPLY_BY_SKILLS_DESC = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName LIKE ? ORDER BY ? DESC`;
+const SQL_QUERY_GET_SUPPLY_BY_SKILLS_ASC = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName LIKE ?`;
+const SQL_QUERY_GET_SUPPLY_BY_SKILLS_DESC = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName LIKE ?`;
 const SQL_QUERY_GET_SUPPLY_BY_ID = `SELECT * FROM 'Supply' WHERE ApplicantID=?`;
 const SQL_QUERY_DELETE_SUPPLY_BY_ID = `DELETE FROM 'Supply' WHERE ApplicantID=?`;
 const SQL_QUERY_ADD_NEW_SUPPLY = `INSERT INTO Supply(ApplicantFirstName, ApplicantLastName, SkillsID, ApplicantStatus, Notes, ApplicantType, Location) VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -96,9 +96,10 @@ export const getSupplyDataV2 = (selectedSkills) => {
 };
 
 export const getSupplyDataV2ASC = (selectedSkills, columnName) => {
+  columnName = columnName || "ApplicantID";
   let rowSupplies = db
-    .prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS_ASC)
-    .all(selectedSkills || "%", columnName || "ApplicantID");
+    .prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS_ASC + `ORDER BY ${columnName} ASC`)
+    .all(selectedSkills || "%");
   console.log(rowSupplies);
   const supplies = [];
   rowSupplies.forEach((rowSupply) => {
@@ -108,9 +109,12 @@ export const getSupplyDataV2ASC = (selectedSkills, columnName) => {
 };
 
 export const getSupplyDataV2DESC = (selectedSkills, columnName) => {
+  columnName = columnName || "ApplicantID";
   let rowSupplies = db
-    .prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS_DESC)
-    .all(selectedSkills || "%", columnName + "" || "ApplicantID");
+    .prepare(
+      SQL_QUERY_GET_SUPPLY_BY_SKILLS_DESC + ` ORDER BY ${columnName} DESC`
+    )
+    .all(selectedSkills || "%");
   console.log(rowSupplies);
   const supplies = [];
   rowSupplies.forEach((rowSupply) => {
