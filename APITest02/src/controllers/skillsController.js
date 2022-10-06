@@ -1,13 +1,18 @@
-import sqlite3 from 'better-sqlite3';
+import { skillsData } from "../data";
+import AWS from "aws-sdk";
+import { awsConfig } from "../awsConfig";
 
-const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {fileMustExist: false});
+AWS.config.update(awsConfig);
 
-const sql_query = 
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-`select * from 'Skills'`;
+export const getSkillsData = async () => {
+  const params = {
+    TableName: "Skill",
+  };
 
-export const getSkillsData = () => {
-    let data = db.prepare(sql_query).all();
-    console.log(data);
-	return data;
-}
+  const data = await docClient.scan(params).promise();
+  return data.Items;
+  // const data = skillsData;
+  // return data;
+};

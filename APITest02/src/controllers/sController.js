@@ -1,9 +1,20 @@
+<<<<<<< HEAD
 import sqlite3 from "better-sqlite3";
 import { SupplyMapper } from "../helpers/mappers/supplyMapper";
 
 const db = new sqlite3("/mnt/sqlite-volume/Workforce_Planning_02.db", {
   fileMustExist: false,
 });
+=======
+import { supplyData } from "../data";
+import { SupplyMapper } from "../helpers/mappers/supplyMapper";
+import AWS from "aws-sdk";
+import { awsConfig } from "../awsConfig";
+
+AWS.config.update(awsConfig);
+
+const docClient = new AWS.DynamoDB.DocumentClient();
+>>>>>>> 104a237626d71825a0433a839c63b7cadc0a6a65
 
 const SQL_QUERY_GET_SUPPLY_BY_SKILLS = `SELECT * FROM 'Supply', 'Skills' WHERE Skills.SkillsID=Supply.SkillsID AND Skills.SkillName LIKE ?`;
 const SQL_QUERY_GET_SUPPLY_BY_ID = `SELECT * FROM 'Supply' WHERE ApplicantID=?`;
@@ -23,6 +34,7 @@ const SQL_QUERY_UPDATE_SUPPLY = `
         ApplicantID = ?
     `;
 
+<<<<<<< HEAD
 export const getSupplyData = (selectedSkills) => {
   let rowSupplies = db
     .prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS)
@@ -155,4 +167,76 @@ export const updateExistingSupplyV2 = (supply, applicantID) => {
     );
   console.log(response);
   return response.changes >= 1;
+=======
+export const deleteSupplyByID = (supplyID) => {
+  // let response = db.prepare(SQL_QUERY_DELETE_SUPPLY_BY_ID).run(supplyID);
+  // console.log(response);
+  // return response.changes === 1;
+  return;
+};
+
+//V2 versions of the controller with the new model, the V1 will be comissioned whenever the switch is done on react app
+export const getSupplyDataV2 = async (selectedSkills) => {
+  const params = {
+    TableName: "Supply",
+  };
+
+  const data = await docClient.scan(params).promise();
+  // console.log(data.Items);
+  // console.log(supplyData);
+  return data.Items;
+  // let rowSupplies = db
+  //   .prepare(SQL_QUERY_GET_SUPPLY_BY_SKILLS)
+  //   .all(selectedSkills || "%");
+  // console.log(rowSupplies);
+  // const supplies = [];
+  // rowSupplies.forEach((rowSupply) => {
+  //   supplies.push(SupplyMapper.mapToSupply(rowSupply));
+  // });
+  // console.log(supplies);
+  // return supplies;
+  // const data = supplyData;
+  // return data;
+};
+
+export const getSupplyByIDV2 = (selectedSkillsID) => {
+  // let rowSupply = db.prepare(SQL_QUERY_GET_SUPPLY_BY_ID).get(selectedSkillsID);
+  // console.log(rowSupply);
+  // return SupplyMapper.mapToSupply(rowSupply);
+  return;
+};
+
+export const addNewSupplyV2 = (supply) => {
+  // let response = db
+  //   .prepare(SQL_QUERY_ADD_NEW_SUPPLY)
+  //   .run(
+  //     supply.applicantFirstName,
+  //     supply.applicantLastName,
+  //     supply.applicantSkills,
+  //     supply.applicantStatus,
+  //     supply.applicantNotes,
+  //     supply.applicantType,
+  //     supply.applicantLocation
+  //   );
+  // return response.lastInsertRowid || -1;
+  return;
+};
+
+export const updateExistingSupplyV2 = (supply, applicantID) => {
+  // let response = db
+  //   .prepare(SQL_QUERY_UPDATE_SUPPLY)
+  //   .run(
+  //     supply.applicantFirstName,
+  //     supply.applicantLastName,
+  //     supply.applicantSkills,
+  //     supply.applicantStatus,
+  //     supply.applicantNotes,
+  //     supply.applicantType,
+  //     supply.applicantLocation,
+  //     applicantID
+  //   );
+  // console.log(response);
+  // return response.changes >= 1;
+  return;
+>>>>>>> 104a237626d71825a0433a839c63b7cadc0a6a65
 };
