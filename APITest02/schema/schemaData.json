@@ -1,0 +1,52 @@
+[
+  {
+    "CLIENTS": "",
+    "ClientID": "Barclays",
+    "ClientName": "BARCLAYS EXECUTION SERVICES LIMITED"
+  },
+  {
+    "DEMAND": "",
+    "DemandID": 1,
+
+    "ClientID": "Barclays",
+    "CodeRequisition": 12200345,
+    "CreationDate": null,
+    "Grade": "B2",
+    "Location": null,
+    "Notes": null,
+    "OriginatorName": "Naresh Swarnkar",
+    "Probability": null,
+    "ProposedApplicant": null,
+    "SelectedApplicant": "1",
+    "SkillsID": 1,
+    "StartDate": "2022-04-11",
+    "Status": "Proposed"
+  },
+  {
+    "SKILLS": "",
+    "SkillsID": 1,
+
+    "Priority": 1,
+    "SkillName": "React"
+  },
+  {
+    "SUPPLY": "",
+    "ApplicantID": 1,
+
+    "ApplicantFirstName": "Tom",
+    "ApplicantLastName": "James",
+    "ApplicantStatus": "Offered",
+    "ApplicantType": "External Hire",
+    "Location": "London",
+    "Notes": "",
+    "SkillsID": 1
+  },
+  {
+    "USERS": "",
+    "UserId": 1,
+
+    "Password": "YWJjZDEyMzQ=",
+    "Role": "admin",
+    "Username": "yguegan"
+  }
+]

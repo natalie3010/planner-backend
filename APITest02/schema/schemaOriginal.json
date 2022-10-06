@@ -1,0 +1,48 @@
+[
+  {
+    "CLIENTS": "",
+    "ClientID": "STRING",
+    "ClientName": "STRING"
+  },
+  {
+    "DEMAND": "",
+    "ClientID": "STRING",
+    "CodeRequisition": "INT",
+    "CreationDate": "STRING",
+    "DemandID": "INT",
+    "Grade": "STRING",
+    "Location": "STRING",
+    "Notes": "STRING",
+    "OriginatorName": "STRING",
+    "Probability": "STRING",
+    "ProposedApplicant": "STRING",
+    "SelectedApplicant": "STRING",
+    "SkillsID": "INT",
+    "StartDate": "STRING",
+    "Status": "STRING"
+  },
+  {
+    "SKILLS": "",
+    "Priority": "INT",
+    "SkillName": "STRING",
+    "SkillsID": "INT"
+  },
+  {
+    "SUPPLY": "",
+    "ApplicantFirstName": "STRING",
+    "ApplicantID": "INT",
+    "ApplicantLastName": "STRING",
+    "ApplicantStatus": "STRING",
+    "ApplicantType": "STRING",
+    "Location": "STRING",
+    "Notes": "STRING",
+    "SkillsID": "INT"
+  },
+  {
+    "USERS": "",
+    "Password": "STRING=",
+    "Role": "STRING",
+    "UserId": "INT",
+    "Username": "STRING"
+  }
+]
