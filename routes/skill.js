@@ -3,4 +3,4 @@ import { Router } from 'express'
 
 export const skill = Router()
 
-skill.get('/', skillController.getAll())
+skill.get('/', skillController.getAll)

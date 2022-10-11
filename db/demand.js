@@ -5,8 +5,6 @@ AWS.config.update(awsConfig)
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
-// (CodeRequisition, StartDate, ClientID, OriginatorName, SkillsID, Probability, Grade, SelectedApplicant, Status, Notes, ProposedApplicant, CreationDate, Location)
-
 export const demandDB = {
   getAll: async () => {
     const params = {
@@ -17,7 +15,28 @@ export const demandDB = {
     return data.Items
   },
   getOne: async (selectedSkillsID) => {},
-  create: async (demand) => {},
+  create: async (demand) => {
+    const params = {
+      TableName: 'Demand',
+      Item: {
+        ClientID: demand.clientID,
+        CodeRequisition: demand.codeRequisition,
+        StartDate: demand.startDate,
+        OriginatorName: demand.originatorName,
+        SkillsID: demand.skillsID,
+        Probability: demand.probability,
+        Grade: demand.grade,
+        SelectedApplicant: demand.selectedApplicant,
+        Status: demand.status,
+        Notes: demand.notes,
+        ProposedApplicant: demand.proposedApplicant,
+        CreationDate: demand.creationDate,
+        Location: demand.location,
+      },
+    }
+    const result = await docClient.put(params).promise()
+    return params
+  },
   update: async (demandID, demand) => {},
   remove: async (DemandID) => {
     const params = {
