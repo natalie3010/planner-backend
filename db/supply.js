@@ -16,15 +16,16 @@ export const supplyDB = {
   getOne: async (id) => {
     const params = {
       TableName: 'supply',
-      key: {
+      Key: {
         id,
       },
     }
     const data = await docClient.get(params).promise()
-    return data
+    return data.Item
   },
   create: async (supply) => {
     const {
+      id,
       applicantFirstName,
       applicantLastName,
       skillsID,
@@ -36,6 +37,7 @@ export const supplyDB = {
     const params = {
       TableName: 'supply',
       Item: {
+        id,
         applicantFirstName,
         applicantLastName,
         skillsID,
@@ -55,11 +57,11 @@ export const supplyDB = {
         id,
       },
       UpdateExpression:
-        'set #applicantFirstName=:applicantFirstName, #applicantLastName=:applicantLastName, #skillsID=:skillsID, #applicantStatus=:applicantStatus, #notes=:notes, #applicantType=:applicantType, #location=:location',
+        'set #applicantFirstName=:applicantFirstName, #applicantLastName=:applicantLastName, #skillID=:skillID, #applicantStatus=:applicantStatus, #notes=:notes, #applicantType=:applicantType, #location=:location',
       ExpressionAttributeNames: {
         '#applicantFirstName': 'applicantFirstName',
         '#applicantLastName': 'applicantLastName',
-        '#skillsID': 'skillsID',
+        '#skillID': 'skillID',
         '#applicantStatus': 'applicantStatus',
         '#notes': 'notes',
         '#applicantType': 'applicantType',
@@ -68,7 +70,7 @@ export const supplyDB = {
       ExpressionAttributeValues: {
         ':applicantFirstName': supply.applicantFirstName,
         ':applicantLastName': supply.applicantLastName,
-        ':skillsID': supply.skillsID,
+        ':skillID': supply.skillID,
         ':applicantStatus': supply.applicantStatus,
         ':notes': supply.notes,
         ':applicantType': supply.applicantType,

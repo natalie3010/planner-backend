@@ -17,17 +17,17 @@ export const demandDB = {
   getOne: async (id) => {
     const params = {
       TableName: 'demand',
-      key: {
+      Key: {
         id,
       },
     }
     const data = await docClient.get(params).promise()
-    return data
+    return data.Item
   },
   create: async (demand) => {
     const {
       id,
-      codeRequisitio,
+      codeRequisition,
       startDate,
       originatorName,
       skillID,
@@ -41,10 +41,10 @@ export const demandDB = {
       location,
     } = demand
     const params = {
-      TableName: 'Demand',
+      TableName: 'demand',
       Item: {
         id,
-        codeRequisitio,
+        codeRequisition,
         startDate,
         originatorName,
         skillID,
@@ -68,9 +68,8 @@ export const demandDB = {
         id,
       },
       UpdateExpression:
-        'set #id=:id, #codeRequisition=:codeRequisition, #startDate=:startDate, #originatorName=:originatorName, #skillID=:skillID, #probability=:probability, #grade=:grade, #selectedApplicant=:selectedApplicant, #status=:status, #notes=:notes, #proposedApplicant=:proposedApplicant, #creationDate=:creationDate, #location=:location',
+        'set #codeRequisition=:codeRequisition, #startDate=:startDate, #originatorName=:originatorName, #skillID=:skillID, #probability=:probability, #grade=:grade, #selectedApplicant=:selectedApplicant, #status=:status, #notes=:notes, #proposedApplicant=:proposedApplicant, #creationDate=:creationDate, #location=:location',
       ExpressionAttributeNames: {
-        '#id': 'id',
         '#codeRequisition': 'codeRequisition',
         '#startDate': 'startDate',
         '#originatorName': 'originatorName',
@@ -85,7 +84,6 @@ export const demandDB = {
         '#location': 'location',
       },
       ExpressionAttributeValues: {
-        ':id': demand.id,
         ':codeRequisition': demand.codeRequisition,
         ':startDate': demand.startDate,
         ':originatorName': demand.originatorName,

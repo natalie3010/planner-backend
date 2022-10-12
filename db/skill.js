@@ -21,7 +21,7 @@ export const skillDB = {
       },
     }
     const data = await docClient.get(params).promise()
-    return data
+    return data.Item
   },
   create: async (skill) => {
     const { id, name, priority } = skill

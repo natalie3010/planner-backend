@@ -8,7 +8,7 @@ export const clientController = {
   getOne: async (req, res) => {
     const { id } = req.params
 
-    const data = await demandDB.getOne(id)
+    const data = await clientDB.getOne(id)
     res.status(200).json(data)
   },
   create: async (req, res) => {

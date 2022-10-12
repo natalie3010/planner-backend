@@ -16,18 +16,19 @@ export const userDB = {
   getOne: async (id) => {
     const params = {
       TableName: 'user',
-      key: {
+      Key: {
         id,
       },
     }
     const data = await docClient.get(params).promise()
-    return data
+    return data.Item
   },
   create: async (user) => {
-    const { userName, password, role } = user
+    const { id, userName, password, role } = user
     const params = {
       TableName: 'user',
       Item: {
+        id,
         userName,
         password,
         role,

@@ -13,6 +13,16 @@ export const clientDB = {
     const data = await docClient.scan(params).promise()
     return data.Items
   },
+  getOne: async (id) => {
+    const params = {
+      TableName: 'client',
+      Key: {
+        id,
+      },
+    }
+    const data = await docClient.get(params).promise()
+    return data.Item
+  },
   create: async (client) => {
     const { id, name } = client
     const params = {
