@@ -40,7 +40,6 @@ export const clientDB = {
       },
       ReturnValues: 'UPDATED_NEW',
     }
-
     const result = await docClient.update(params).promise()
     return result
   },
