@@ -59,6 +59,7 @@ export const clientDB = {
       Key: {
         id,
       },
+      ReturnValues: 'ALL_OLD',
     }
     const result = await docClient.delete(params).promise()
     return result
