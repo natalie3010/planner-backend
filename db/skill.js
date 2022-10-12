@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk'
-import { awsConfig } from '../awsConfig'
+import { awsConfig } from '../config/awsConfig'
 
 AWS.config.update(awsConfig)
 
