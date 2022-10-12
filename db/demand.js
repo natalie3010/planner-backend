@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk'
-import { awsConfig } from '../config/awsConfig'
+import { awsConfig } from '../config/aws'
 
 AWS.config.update(awsConfig)
 
@@ -10,7 +10,6 @@ export const demandDB = {
     const params = {
       TableName: 'demand',
     }
-
     const data = await docClient.scan(params).promise()
     return data.Items
   },
