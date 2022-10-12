@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import { app } from './app'
+import { skillDB } from './db'
 import { Http, Https } from './httpHttps'
 
 dotenv.config()
@@ -9,3 +10,6 @@ try {
 } catch (error) {
   console.log('Server boot error', { error })
 }
+
+// const data = async () => console.log(await skillDB.getOne(2))
+// data()

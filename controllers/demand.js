@@ -6,9 +6,9 @@ export const demandController = {
     res.status(200).json(data)
   },
   getOne: async (req, res) => {
-    const { demandID } = req.params
+    const { id } = req.params
 
-    const data = await demandDB.getOne(demandID)
+    const data = await demandDB.getOne(id)
     res.status(200).json(data)
   },
   create: async (req, res) => {
@@ -17,19 +17,17 @@ export const demandController = {
     const data = await demandDB.create(demand)
     res.status(200).json(data)
   },
-
   update: async (req, res) => {
+    const { id } = req.params
     const { demand } = req.body
-    const { demandID } = req.params
 
-    const data = await demandDB.update(demandID, demand)
+    const data = await demandDB.update(id, demand)
     res.status(200).json(data)
   },
-
   remove: async (req, res) => {
-    const { demandID } = req.params
+    const { id } = req.params
 
-    const data = demandDB.remove(demandID)
+    const data = demandDB.remove(id)
     res.status(200).json(data)
   },
 }

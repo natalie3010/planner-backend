@@ -8,66 +8,82 @@ const docClient = new AWS.DynamoDB.DocumentClient()
 export const supplyDB = {
   getAll: async () => {
     const params = {
-      TableName: 'Supply',
+      TableName: 'supply',
     }
-
     const data = await docClient.scan(params).promise()
     return data.Items
   },
-  getOne: async (applicantID) => {},
-  getOneBySkill: async (selectedSkillsID) => {},
-  create: async (supply) => {
+  getOne: async (id) => {
     const params = {
-      TableName: 'Supply',
+      TableName: 'supply',
+      key: {
+        id,
+      },
+    }
+    const data = await docClient.get(params).promise()
+    return data
+  },
+  create: async (supply) => {
+    const {
+      applicantFirstName,
+      applicantLastName,
+      skillsID,
+      applicantStatus,
+      notes,
+      applicantType,
+      location,
+    } = supply
+    const params = {
+      TableName: 'supply',
       Item: {
-        ApplicantFirstName: supply.applicantFirstName,
-        ApplicantLastName: supply.applicantLastName,
-        SkillsID: supply.skillsID,
-        ApplicantStatus: supply.applicantStatus,
-        Notes: supply.notes,
-        ApplicantType: supply.applicantType,
-        Location: supply.location,
+        applicantFirstName,
+        applicantLastName,
+        skillsID,
+        applicantStatus,
+        notes,
+        applicantType,
+        location,
       },
     }
     const result = await docClient.put(params).promise()
-    return params
+    return result
   },
-  update: async (SupplyID, supply) => {
+  update: async (id, supply) => {
     const params = {
-      TableName: 'Supply',
+      TableName: 'supply',
       Key: {
-        SupplyID,
+        id,
       },
       UpdateExpression:
-        'set #ApplicantFirstName=:ApplicantFirstName, #ApplicantLastName=:ApplicantLastName, #SkillsID=:SkillsID, #ApplicantStatus=:ApplicantStatus, #Notes=:Notes, #ApplicantType=:ApplicantType, #Location=:Location',
+        'set #applicantFirstName=:applicantFirstName, #applicantLastName=:applicantLastName, #skillsID=:skillsID, #applicantStatus=:applicantStatus, #notes=:notes, #applicantType=:applicantType, #location=:location',
       ExpressionAttributeNames: {
-        '#ApplicantFirstName': 'ApplicantFirstName',
-        '#ApplicantLastName': 'ApplicantLastName',
-        '#SkillsID': 'SkillsID',
-        '#ApplicantStatus': 'ApplicantStatus',
-        '#Notes': 'Notes',
-        '#ApplicantType': 'ApplicantType',
-        '#Location': 'Location',
+        '#applicantFirstName': 'applicantFirstName',
+        '#applicantLastName': 'applicantLastName',
+        '#skillsID': 'skillsID',
+        '#applicantStatus': 'applicantStatus',
+        '#notes': 'notes',
+        '#applicantType': 'applicantType',
+        '#location': 'location',
       },
       ExpressionAttributeValues: {
-        ':ApplicantFirstName': supply.applicantFirstName,
-        ':ApplicantLastName': supply.applicantLastName,
-        ':SkillsID': supply.skillsID,
-        ':ApplicantStatus': supply.applicantStatus,
-        ':Notes': supply.notes,
-        ':ApplicantType': supply.applicantType,
-        ':Location': supply.location,
+        ':applicantFirstName': supply.applicantFirstName,
+        ':applicantLastName': supply.applicantLastName,
+        ':skillsID': supply.skillsID,
+        ':applicantStatus': supply.applicantStatus,
+        ':notes': supply.notes,
+        ':applicantType': supply.applicantType,
+        ':location': supply.location,
       },
       ReturnValues: 'UPDATED_NEW',
     }
     const result = await docClient.update(params).promise()
     return result
   },
-  remove: async (SupplyID) => {
+  remove: async (id) => {
     const params = {
-      TableName: 'Supply',
+      TableName: 'supply',
       Key: {
-        SupplyID,
+        id,
       },
     }
     const result = await docClient.delete(params).promise()

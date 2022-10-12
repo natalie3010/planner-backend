@@ -4,14 +4,12 @@ import { client } from './client'
 import { user } from './user'
 import { supply } from './supply'
 import { demand } from './demand'
-// import { authentication } from './authentication'
-import { Authorised } from './middleware/authorisation'
+import { authorised } from './middleware/authorisation'
 
 export const api = Router()
 
-// api.use('/account', authentication)
-api.use('/skills', Authorised(['SUPERUSER', 'ADMIN']), skill)
-// api.use('/skill', skill)
+// api.use('/skills', authorised(['SUPERUSER', 'ADMIN']), skill)
+api.use('/skills', skill)
 api.use('/clients', client)
 api.use('/users', user)
 api.use('/supply', supply)

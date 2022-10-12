@@ -8,46 +8,46 @@ const docClient = new AWS.DynamoDB.DocumentClient()
 export const clientDB = {
   getAll: async () => {
     const params = {
-      TableName: 'Client',
+      TableName: 'client',
     }
     const data = await docClient.scan(params).promise()
-    console.log(data)
     return data.Items
   },
-  create: async (ClientID, ClientName) => {
+  create: async (client) => {
+    const { id, name } = client
     const params = {
-      TableName: 'Client',
+      TableName: 'client',
       Item: {
-        ClientID,
-        ClientName,
+        id,
+        name,
       },
     }
     const result = await docClient.put(params).promise()
-    return params
+    return result
   },
-  update: async (ClientID, client) => {
+  update: async (id, client) => {
     const params = {
-      TableName: 'Client',
+      TableName: 'client',
       Key: {
-        ClientID,
+        id,
       },
-      UpdateExpression: 'set #ClientName=:ClientName',
+      UpdateExpression: 'set #name=:name',
       ExpressionAttributeNames: {
-        '#ClientName': 'ClientName',
+        '#name': 'name',
       },
       ExpressionAttributeValues: {
-        ':ClientName': client.ClientName,
+        ':name': client.name,
       },
       ReturnValues: 'UPDATED_NEW',
     }
     const result = await docClient.update(params).promise()
     return result
   },
-  remove: async (ClientID) => {
+  remove: async (id) => {
     const params = {
-      TableName: 'Client',
+      TableName: 'client',
       Key: {
-        ClientID,
+        id,
       },
     }
     const result = await docClient.delete(params).promise()

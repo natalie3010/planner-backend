@@ -4,7 +4,7 @@ import { supplyController } from '../controllers'
 export const supply = Router()
 
 supply.get('/', supplyController.getAll)
-supply.get('/:applicantID', supplyController.getOne)
+supply.get('/:id', supplyController.getOne)
 supply.post('/', supplyController.create)
-supply.put('/:applicantID', supplyController.update)
-supply.delete('/:applicantID', supplyController.remove)
+supply.put('/:id', supplyController.update)
+supply.delete('/:id', supplyController.remove)

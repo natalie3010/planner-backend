@@ -3,7 +3,7 @@ import { userDB } from '../../db'
 import { AuthTokenMissing } from '../../exceptions/authTokenMissing'
 import { WrongToken } from '../../exceptions/wrongToken'
 
-export const Authorised = (roles) => {
+export const authorised = (roles) => {
   return async (req, _, next) => {
     const token = req.signedCookies['access_token'] || ''
 

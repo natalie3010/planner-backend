@@ -8,83 +8,107 @@ const docClient = new AWS.DynamoDB.DocumentClient()
 export const demandDB = {
   getAll: async () => {
     const params = {
-      TableName: 'Demand',
+      TableName: 'demand',
     }
 
     const data = await docClient.scan(params).promise()
     return data.Items
   },
-  getOne: async (selectedSkillsID) => {},
+  getOne: async (id) => {
+    const params = {
+      TableName: 'demand',
+      key: {
+        id,
+      },
+    }
+    const data = await docClient.get(params).promise()
+    return data
+  },
   create: async (demand) => {
+    const {
+      id,
+      codeRequisitio,
+      startDate,
+      originatorName,
+      skillID,
+      probability,
+      grade,
+      selectedApplicant,
+      status,
+      notes,
+      proposedApplicant,
+      creationDate,
+      location,
+    } = demand
     const params = {
       TableName: 'Demand',
       Item: {
-        ClientID: demand.clientID,
-        CodeRequisition: demand.codeRequisition,
-        StartDate: demand.startDate,
-        OriginatorName: demand.originatorName,
-        SkillsID: demand.skillsID,
-        Probability: demand.probability,
-        Grade: demand.grade,
-        SelectedApplicant: demand.selectedApplicant,
-        Status: demand.status,
-        Notes: demand.notes,
-        ProposedApplicant: demand.proposedApplicant,
-        CreationDate: demand.creationDate,
-        Location: demand.location,
+        id,
+        codeRequisitio,
+        startDate,
+        originatorName,
+        skillID,
+        probability,
+        grade,
+        selectedApplicant,
+        status,
+        notes,
+        proposedApplicant,
+        creationDate,
+        location,
       },
     }
     const result = await docClient.put(params).promise()
-    return params
+    return result
   },
-  update: async (DemandID, demand) => {
+  update: async (id, demand) => {
     const params = {
-      TableName: 'Demand',
+      TableName: 'demand',
       Key: {
-        DemandID,
+        id,
       },
       UpdateExpression:
-        'set #ClientID=:ClientID, #CodeRequisition=:CodeRequisition, #StartDate=:StartDate, #OriginatorName=:OriginatorName, #SkillsID=:SkillsID, #Probability=:Probability, #Grade=:Grade, #SelectedApplicant=:SelectedApplicant, #Status=:Status, #Notes=:Notes, #ProposedApplicant=:ProposedApplicant, #CreationDate=:CreationDate, #Location=:Location',
+        'set #id=:id, #codeRequisition=:codeRequisition, #startDate=:startDate, #originatorName=:originatorName, #skillID=:skillID, #probability=:probability, #grade=:grade, #selectedApplicant=:selectedApplicant, #status=:status, #notes=:notes, #proposedApplicant=:proposedApplicant, #creationDate=:creationDate, #location=:location',
       ExpressionAttributeNames: {
-        '#ClientID': 'ClientID',
-        '#CodeRequisition': 'CodeRequisition',
-        '#StartDate': 'StartDate',
-        '#OriginatorName': 'OriginatorName',
-        '#SkillsID': 'SkillsID',
-        '#Probability': 'Probability',
-        '#Grade': 'Grade',
-        '#SelectedApplicant': 'SelectedApplicant',
-        '#Status': 'Status',
-        '#Notes': 'Notes',
-        '#ProposedApplicant': 'ProposedApplicant',
-        '#CreationDate': 'CreationDate',
-        '#Location': 'Location',
+        '#id': 'id',
+        '#codeRequisition': 'codeRequisition',
+        '#startDate': 'startDate',
+        '#originatorName': 'originatorName',
+        '#skillID': 'skillID',
+        '#probability': 'probability',
+        '#grade': 'grade',
+        '#selectedApplicant': 'selectedApplicant',
+        '#status': 'status',
+        '#notes': 'notes',
+        '#proposedApplicant': 'proposedApplicant',
+        '#creationDate': 'creationDate',
+        '#location': 'location',
       },
       ExpressionAttributeValues: {
-        ':ClientID': demand.clientID,
-        ':CodeRequisition': demand.codeRequisition,
-        ':StartDate': demand.startDate,
-        ':OriginatorName': demand.originatorName,
-        ':SkillsID': demand.skillsID,
-        ':Probability': demand.probability,
-        ':Grade': demand.grade,
-        ':SelectedApplicant': demand.selectedApplicant,
-        ':Status': demand.status,
-        ':Notes': demand.notes,
-        ':ProposedApplicant': demand.proposedApplicant,
-        ':CreationDate': demand.creationDate,
-        ':Location': demand.location,
+        ':id': demand.id,
+        ':codeRequisition': demand.codeRequisition,
+        ':startDate': demand.startDate,
+        ':originatorName': demand.originatorName,
+        ':skillID': demand.skillID,
+        ':probability': demand.probability,
+        ':grade': demand.grade,
+        ':selectedApplicant': demand.selectedApplicant,
+        ':status': demand.status,
+        ':notes': demand.notes,
+        ':proposedApplicant': demand.proposedApplicant,
+        ':creationDate': demand.creationDate,
+        ':location': demand.location,
       },
       ReturnValues: 'UPDATED_NEW',
     }
     const result = await docClient.update(params).promise()
     return result
   },
-  remove: async (DemandID) => {
+  remove: async (id) => {
     const params = {
-      TableName: 'Demand',
+      TableName: 'demand',
       Key: {
-        DemandID,
+        id,
       },
     }
     const result = await docClient.delete(params).promise()

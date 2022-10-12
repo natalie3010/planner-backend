@@ -4,7 +4,7 @@ import { demandController } from '../controllers'
 export const demand = Router()
 
 demand.get('/', demandController.getAll)
-demand.get('/:demandID', demandController.getOne)
+demand.get('/:id', demandController.getOne)
 demand.post('/', demandController.create)
-demand.put('/:demandID', demandController.update)
-demand.delete('/:demandID', demandController.remove)
+demand.put('/:id', demandController.update)
+demand.delete('/:id', demandController.remove)
