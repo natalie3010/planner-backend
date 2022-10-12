@@ -24,7 +24,7 @@ export const userDB = {
     return data
   },
   create: async (user) => {
-    const { username, password, role } = user
+    const { userName, password, role } = user
     const params = {
       TableName: 'user',
       Item: {
