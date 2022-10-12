@@ -11,6 +11,12 @@ export const supplyController = {
     const data = await supplyDB.getOne(id)
     res.status(200).json(data)
   },
+  getAllBySkill: async (req, res) => {
+    const { id } = req.params
+
+    const data = await supplyDB.getAllBySkill(id)
+    res.status(200).json(data)
+  },
   create: async (req, res) => {
     const { supply } = req.body
 

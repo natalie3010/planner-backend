@@ -23,6 +23,21 @@ export const supplyDB = {
     const data = await docClient.get(params).promise()
     return data.Item
   },
+  getAllBySkill: async (id) => {
+    const params = {
+      TableName: 'supply',
+      IndexName: 'skillID-id-index',
+      KeyConditionExpression: '#skillID = :skillID',
+      ExpressionAttributeNames: {
+        '#skillID': 'skillID',
+      },
+      ExpressionAttributeValues: {
+        ':skillID': id,
+      },
+    }
+    const data = await docClient.query(params).promise()
+    return data.Items
+  },
   create: async (supply) => {
     const {
       id,

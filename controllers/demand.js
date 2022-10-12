@@ -11,6 +11,12 @@ export const demandController = {
     const data = await demandDB.getOne(id)
     res.status(200).json(data)
   },
+  getAllBySkill: async (req, res) => {
+    const { id } = req.params
+
+    const data = await demandDB.getAllBySkill(id)
+    res.status(200).json(data)
+  },
   create: async (req, res) => {
     const { demand } = req.body
 
