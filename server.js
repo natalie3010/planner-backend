@@ -10,6 +10,3 @@ try {
 } catch (error) {
   console.log('Server boot error', { error })
 }
-
-// const data = async () => console.log(await skillDB.getOne(2))
-// data()
