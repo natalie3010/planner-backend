@@ -23,6 +23,21 @@ export const userDB = {
     const data = await docClient.get(params).promise()
     return data.Item
   },
+  getByName: async (userName) => {
+    const params = {
+      TableName: 'user',
+      IndexName: 'userName-index',
+      KeyConditionExpression: '#userName = :userName',
+      ExpressionAttributeNames: {
+        '#userName': 'userName',
+      },
+      ExpressionAttributeValues: {
+        ':userName': userName,
+      },
+    }
+    const data = await docClient.query(params).promise()
+    return data.Items[0]
+  },
   create: async (user) => {
     const { id, userName, password, role } = user
     const params = {

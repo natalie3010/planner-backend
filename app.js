@@ -9,6 +9,7 @@ dotenv.config()
 
 const CORS_OPTIONS = {
   origin: ['http://localhost:4200'],
+  credentials: true,
 }
 
 export const app = express()

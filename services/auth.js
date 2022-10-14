@@ -1,17 +1,22 @@
 import { compare, hash } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { userDB } from '../db/user'
-import { UserAlreadyExists } from '../exceptions/userAlreadyExists'
-import { WrongCredentials } from '../exceptions/wrongCredetianls'
+import {
+  WrongCredentials,
+  UserAlreadyExists,
+  WeakPassword,
+} from '../exceptions'
 import { cookieOptions } from '../config/cookies'
+import { strongPassword } from '../validation/strongPassword'
 
-export const AuthService = {
+export const authService = {
   login: async ({ userName, password }) => {
     const user = await userDB.getByName(userName)
     if (!user) {
       throw new WrongCredentials()
     }
-    const validPassword = await compare(password, user.password)
+    // const validPassword = await compare(password, user.password)
+    const validPassword = user.password == password
     if (!validPassword) {
       throw new WrongCredentials()
     }
@@ -27,6 +32,9 @@ export const AuthService = {
     const dbUser = await userDB.getByName(userName)
     if (dbUser) {
       throw new UserAlreadyExists(userName)
+    }
+    if (!strongPassword(password)) {
+      throw new WeakPassword()
     }
     let userData
     userData.userName = userName

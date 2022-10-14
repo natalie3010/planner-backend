@@ -1,7 +1,6 @@
 import { verify } from 'jsonwebtoken'
-import { userDB } from '../../db'
-import { AuthTokenMissing } from '../../exceptions/authTokenMissing'
-import { WrongToken } from '../../exceptions/wrongToken'
+import { userDB } from '../db'
+import { AuthTokenMissing, WrongToken, NotAuthorised } from '../exceptions'
 
 export const authorised = (roles) => {
   return async (req, _, next) => {
@@ -16,11 +15,11 @@ export const authorised = (roles) => {
           req.user = user
           return next()
         }
-
         if (user && roles.find((role) => user.role.indexOf(role) !== -1)) {
           req.user = user
           return next()
         }
+        return next(new NotAuthorised())
       } catch (error) {
         next(new WrongToken())
       }
