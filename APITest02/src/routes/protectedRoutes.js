@@ -5,6 +5,7 @@ import userRoutes from "./userRoutes";
 import { verifyToken } from "../helpers/jwtTokenHelper";
 import supplyRoutesV2 from "./supplyRoutesV2";
 import demandRoutesV2 from "./demandRoutesV2";
+import barChartRoute from "./barChartRoutes";
 
 const protectedRoutes = Router();
 
@@ -27,5 +28,6 @@ protectedRoutes.use("/supply", supplyRoutesV2);
 protectedRoutes.use("/v2/supply", supplyRoutesV2);
 protectedRoutes.use("/demand", demandRoutesV2);
 protectedRoutes.use("/v2/demand", demandRoutesV2);
+protectedRoutes.use("/barchart", barChartRoute);
 
 export default protectedRoutes;
