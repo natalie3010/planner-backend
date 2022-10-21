@@ -6,7 +6,7 @@ export const cookieOptions = () => {
   return {
     httpOnly: true,
     signed: true,
-    sameSite: process.env.NODE_ENV === 'production',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'None',
+    secure: true,
   }
 }
