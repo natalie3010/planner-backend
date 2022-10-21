@@ -8,7 +8,7 @@ import { api } from './routes'
 dotenv.config()
 
 const CORS_OPTIONS = {
-  origin: ['http://localhost:4200'],
+  origin: ['http://localhost:4200', 'https://workforce.capdigiops.com'],
   credentials: true,
 }
 

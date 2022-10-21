@@ -4,7 +4,7 @@ import fs from 'fs'
 
 dotenv.config()
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 80
 
 export const Http = (app) => {
   app.listen(PORT, () => {
@@ -21,12 +21,8 @@ export const Https = (app) => {
   })
 
   const options = {
-    key: env.PRIVKEY
-      ? fs.readFileSync(env.PRIVKEY.replace(/\\n/gm, '\n'), 'utf8')
-      : '',
-    cert: env.CERT
-      ? fs.readFileSync(env.CERT.replace(/\\n/gm, '\n'), 'utf8')
-      : '',
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.crt'),
   }
 
   https.createServer(options, app).listen(443)
