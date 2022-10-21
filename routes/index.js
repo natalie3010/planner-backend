@@ -4,7 +4,7 @@ import { client } from './client'
 import { user } from './user'
 import { supply } from './supply'
 import { demand } from './demand'
-import { barchart } from './barChart'
+import { barchart } from './barchart'
 import { account } from './account'
 import { authorised } from '../middleware/authorisation'
 
