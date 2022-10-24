@@ -1,11 +1,14 @@
 import dotenv from 'dotenv'
 import { app } from './app'
-import { Https } from './httpHttps'
 
 dotenv.config()
 
+const PORT = process.env.PORT || 80
+
 try {
-  Https(app)
+  app.listen(PORT, () => {
+    console.log(`Http server running at port ${PORT}/`)
+  })
 } catch (error) {
   console.log('Server boot error', { error })
 }
