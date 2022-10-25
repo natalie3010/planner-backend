@@ -47,15 +47,14 @@
       "stack": "Stack 1"
     }
   ],
-  "groupedOptions": {
-    "scales": {
-      "yAxes": [
-        {
-          "ticks": {
-            "beginAtZero": true
-          }
-        }
-      ]
-    }
+
+  "horizontalOptions": {
+    "indexAxis": "y",
+    "elements": {
+      "bar": {
+        "borderWidth": 1
+      }
+    },
+    "responsive": true
   }
 }
