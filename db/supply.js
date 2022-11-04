@@ -39,23 +39,15 @@ export const supplyDB = {
     return data.Items
   },
   create: async (supply) => {
-    const {
-      id,
-      firstName,
-      lastName,
-      skillsID,
-      status,
-      notes,
-      type,
-      location,
-    } = supply
+    const { id, firstName, lastName, skillID, status, notes, type, location } =
+      supply
     const params = {
       TableName: 'supply',
       Item: {
         id,
         firstName,
         lastName,
-        skillsID,
+        skillID,
         status,
         notes,
         type,
