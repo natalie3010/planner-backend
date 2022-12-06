@@ -39,8 +39,17 @@ export const supplyDB = {
     return data.Items
   },
   create: async (supply) => {
-    const { id, firstName, lastName, skillID, status, notes, type, location } =
-      supply
+    const {
+      id,
+      firstName,
+      lastName,
+      skillID,
+      skillName,
+      status,
+      notes,
+      type,
+      location,
+    } = supply
     const params = {
       TableName: 'supply',
       Item: {
@@ -48,6 +57,7 @@ export const supplyDB = {
         firstName,
         lastName,
         skillID,
+        skillName,
         status,
         notes,
         type,
@@ -64,11 +74,12 @@ export const supplyDB = {
         id,
       },
       UpdateExpression:
-        'set #firstName=:firstName, #lastName=:lastName, #skillID=:skillID, #status=:status, #notes=:notes, #type=:type, #location=:location',
+        'set #firstName=:firstName, #lastName=:lastName, #skillID=:skillID, #skillName=:skillName, #status=:status, #notes=:notes, #type=:type, #location=:location',
       ExpressionAttributeNames: {
         '#firstName': 'firstName',
         '#lastName': 'lastName',
         '#skillID': 'skillID',
+        '#skillName': 'skillName',
         '#status': 'status',
         '#notes': 'notes',
         '#type': 'type',
@@ -78,6 +89,7 @@ export const supplyDB = {
         ':firstName': supply.firstName,
         ':lastName': supply.lastName,
         ':skillID': supply.skillID,
+        ':skillName': supply.skillName,
         ':status': supply.status,
         ':notes': supply.notes,
         ':type': supply.type,
