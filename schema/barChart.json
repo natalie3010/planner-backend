@@ -3,26 +3,26 @@
     {
       "label": "Client select",
       "data": [],
-      "backgroundColor": "#FFA200",
+      "backgroundColor": "#CB6F20",
       "stack": "Stack 0"
     },
     {
       "label": "L2 select",
       "data": [],
-      "backgroundColor": "#FFB200",
+      "backgroundColor": "#F29429",
       "stack": "Stack 0"
     },
     {
       "label": "L1 select",
       "data": [],
-      "backgroundColor": "#FFCB42",
+      "backgroundColor": "#D2B22C",
       "stack": "Stack 0"
     },
 
     {
       "label": "Screening",
       "data": [],
-      "backgroundColor": "#FFF4CF",
+      "backgroundColor": "#F7D435",
       "stack": "Stack 0"
     }
   ],
@@ -31,31 +31,45 @@
     {
       "label": "Profile Proposed",
       "data": [],
-      "backgroundColor": " #42855B",
+      "backgroundColor": " #145ABA",
       "stack": "Stack 1"
     },
     {
       "label": "Profiles Required",
       "data": [],
-      "backgroundColor": "#90B77D",
+      "backgroundColor": "#378EF0",
       "stack": "Stack 1"
     },
     {
       "label": "Demand Validation",
       "data": [],
-      "backgroundColor": "#D2D79F",
+      "backgroundColor": "#A2CEFC",
       "stack": "Stack 1"
     }
   ],
-  "groupedOptions": {
-    "scales": {
-      "yAxes": [
-        {
-          "ticks": {
-            "beginAtZero": true
-          }
+
+  "horizontalOptions": {
+    "indexAxis": "y",
+    "elements": {
+      "bar": {
+        "borderWidth": 1
+      }
+    },
+    "plugins": {
+      "legend": {
+        "labels": {
+          "color": "#000000"
         }
-      ]
-    }
+      }
+    },
+    "scales": {
+      "y": {
+        "ticks": { "color": "#000000" }
+      },
+      "x": {
+        "ticks": { "color": "#000000" }
+      }
+    },
+    "responsive": true
   }
 }

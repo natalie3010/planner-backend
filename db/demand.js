@@ -41,10 +41,12 @@ export const demandDB = {
   create: async (demand) => {
     const {
       id,
+      clientID,
       codeRequisition,
       startDate,
       originatorName,
       skillID,
+      skillName,
       probability,
       grade,
       selectedApplicant,
@@ -58,10 +60,12 @@ export const demandDB = {
       TableName: 'demand',
       Item: {
         id,
+        clientID,
         codeRequisition,
         startDate,
         originatorName,
         skillID,
+        skillName,
         probability,
         grade,
         selectedApplicant,
@@ -82,12 +86,13 @@ export const demandDB = {
         id,
       },
       UpdateExpression:
-        'set #codeRequisition=:codeRequisition, #startDate=:startDate, #originatorName=:originatorName, #skillID=:skillID, #probability=:probability, #grade=:grade, #selectedApplicant=:selectedApplicant, #status=:status, #notes=:notes, #proposedApplicant=:proposedApplicant, #creationDate=:creationDate, #location=:location',
+        'set #codeRequisition=:codeRequisition, #startDate=:startDate, #originatorName=:originatorName, #skillID=:skillID, #skillName=:skillName, #probability=:probability, #grade=:grade, #selectedApplicant=:selectedApplicant, #status=:status, #notes=:notes, #proposedApplicant=:proposedApplicant, #creationDate=:creationDate, #location=:location',
       ExpressionAttributeNames: {
         '#codeRequisition': 'codeRequisition',
         '#startDate': 'startDate',
         '#originatorName': 'originatorName',
         '#skillID': 'skillID',
+        '#skillName': 'skillName',
         '#probability': 'probability',
         '#grade': 'grade',
         '#selectedApplicant': 'selectedApplicant',
@@ -102,6 +107,7 @@ export const demandDB = {
         ':startDate': demand.startDate,
         ':originatorName': demand.originatorName,
         ':skillID': demand.skillID,
+        ':skillName': demand.skillName,
         ':probability': demand.probability,
         ':grade': demand.grade,
         ':selectedApplicant': demand.selectedApplicant,
